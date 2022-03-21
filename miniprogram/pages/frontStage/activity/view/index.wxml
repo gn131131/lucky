@@ -1,0 +1,14 @@
+<view class="container">
+  <view>
+    <view>活动名称：{{activityData.name}}</view>
+    <view>参与人数：{{activityData.participateNum}}</view>
+    <view>中奖人数：{{activityData.winNum}}</view>
+    <view>活动时间：{{activityData.activeTimeRange}}</view>
+    <view>最大宝箱数：{{activityData.maxBoxNum}}</view>
+    <view>奖品：<view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
+  </view>
+
+  <button type="primary" bindtap="participate">参与此活动</button>
+
+  <button type="primary" bindtap="draw">抽奖</button>
+</view>

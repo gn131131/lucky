@@ -1,0 +1,1 @@
+"D:\Program Files\微信web开发者工具\cli.bat" cloud functions deploy --e cloud1-0g1wolpycd36fec2 --n frontStageFunctions --r --project "D:\Project\secret\lucky" --report_first --report

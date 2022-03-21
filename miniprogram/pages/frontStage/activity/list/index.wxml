@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="header">
+    <view class="avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-item="{{item}}">
+      <view>{{item.name}}</view>
+      <view>已参与用户数：{{item.participateNum}}</view>
+      <view>奖品：<view wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
+      <view>包含宝箱数：{{item.maxBoxNum}}</view>
+    </view> 
+  </view>
+</view>

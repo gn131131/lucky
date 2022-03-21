@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="header">
+    <view class="avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="list-item" wx:for="{{list}}" wx:key="id">
+      <view>活动名称：{{item.activityName}}</view>
+      <view>奖品名称：{{item.prizeName}}</view>
+      <view>中奖时间：{{item.winTime}}</view>
+    </view> 
+  </view>
+</view>

@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/frontStage/index/index",
+    "pages/backStage/index/index",
+    "pages/backStage/password/index",
+    "pages/backStage/activity/list/index",
+    "pages/backStage/win/list/index",
+    "pages/backStage/user/list/index",
+    "pages/backStage/activity/add/index",
+    "pages/frontStage/activity/list/index",
+    "pages/frontStage/activity/view/index",
+    "pages/frontStage/history/list/index",
+    "pages/frontStage/win/list/index"
+  ],
+  "window": {
+    "backgroundColor": "#fff",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Lucky Draw",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}
