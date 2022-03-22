@@ -107,8 +107,14 @@ Page({
     try {
       const result = await fHttp.activity.draw(this.data.activityId, app.globalData.userInfo.id);
       console.log('抽奖结果', result ? '中奖' : '未中奖');
+      wx.showToast({
+        title: result ? '中奖' : '未中奖'
+      });
     } catch (e) {
       console.error(e);
+      wx.showToast({
+        title: e
+      });
     }
   }
 })

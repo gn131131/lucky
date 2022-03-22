@@ -19,10 +19,20 @@ exports.main = async (event, context) => {
     }).get();
     res.data.prizeList = prizeList.data;
     // 查询参与用户列表并插入
-    const participateUserList = await db.collection('participate_user').where({
+    const participateUserList = await db.collection('participate_user').aggregate().lookup({
+      from: 'user',
+      localField: 'user_id',
+      foreignField: '_id',
+      as: 'infoList'
+    }).match({
       activity_id: data.id
-    }).get();
-    res.data.participateUserList = participateUserList.data;
+    }).end();
+    res.data.participateUserList = participateUserList.list.map(item => {
+      item.nick_name = item.infoList[0].nick_name;
+      item.avatar_url = item.infoList[0].avatar_url;
+      delete item.infoList;
+      return item;
+    });
     const result = convert.Activity(res.data);
     return {
       success: true,

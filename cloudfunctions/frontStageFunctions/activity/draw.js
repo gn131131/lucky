@@ -99,10 +99,6 @@ exports.main = async (event, context) => {
         errMsg: '当前用户未参与此活动'
       };
     }
-    return {
-      success: true,
-      data: []
-    };
   } catch (e) {
     return {
       success: false,

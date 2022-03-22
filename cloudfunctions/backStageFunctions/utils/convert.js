@@ -46,6 +46,8 @@ exports.ParticipateUser = (params) => {
   return {
     id: params._id,
     userId: params.user_id,
+    nickName: params.nick_name,
+    avatarUrl: params.avatar_url,
     activityId: params.activity_id,
     drawTimes: params.draw_times,
     surplusDrawTimes: params.surplus_draw_times,

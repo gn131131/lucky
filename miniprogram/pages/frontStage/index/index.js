@@ -25,7 +25,9 @@ Page({
           });
         }
       } catch (e) {
-        wx.showToast(e);
+        wx.showToast({
+          title: '请求失败'
+        });
       }
     }
   },

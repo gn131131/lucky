@@ -80,6 +80,11 @@ Page({
   },
 
   goto(event) {
-    goto(event);
+    if (event.currentTarget.dataset.item) {
+      const id = event.currentTarget.dataset.item.id;
+      goto(event, {id});
+    } else {
+      goto(event);
+    }
   }
 })

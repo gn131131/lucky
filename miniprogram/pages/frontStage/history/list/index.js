@@ -1,4 +1,5 @@
 import { fHttp } from "../../../../utils/http";
+import { goto } from "../../../../utils/service";
 
 const app = getApp();
 
@@ -81,7 +82,7 @@ Page({
   },
 
   goto(event) {
-    const id = event.currentTarget.dataset.item.id;
+    const id = event.currentTarget.dataset.item.activityId;
     goto(event, {id: id});
   }
 })

@@ -1,6 +1,3 @@
-import { fHttp } from "./http";
-
-const app = getApp();
 
 export const utilsService = {
   http: (url, data) => {

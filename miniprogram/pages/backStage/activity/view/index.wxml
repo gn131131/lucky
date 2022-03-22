@@ -8,7 +8,7 @@
     <view>奖品：
       <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
     </view>
-    <view>参与用户：
+    <view>参与用户列表：
       <view wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
         <view>{{user.nickName}}</view>
         <image src="{{user.avatarUrl}}"></image>
@@ -18,7 +18,17 @@
     </view>
   </view>
 
-  <button type="primary" bindtap="participate">参与此活动</button>
+  <view>模拟次数：<input bindinput="onInput"></input></view>
+  <button type="primary" bindtap="batchDraw">批量模拟抽奖</button>
 
-  <button type="primary" bindtap="draw">抽奖</button>
+  <view class="table">
+    <view class="tr">
+      <view class="td">获奖所用抽取次数</view>
+      <view class="td">抽中次数</view>
+    </view>
+    <view class="tr" wx:for="{{resultArr}}" wx:key="index">
+      <view class="td">{{item.drawTimes}}</view>
+      <view class="td">{{item.winTimes}}</view>
+    </view>
+  </view>
 </view>
