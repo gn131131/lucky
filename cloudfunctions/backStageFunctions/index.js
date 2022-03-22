@@ -8,6 +8,8 @@ const queryWinListByPage = require('./win/queryListByPage');
 
 const queryUserListByPage = require('./user/queryListByPage');
 
+const queryTemplateList = require('./template/queryList');
+
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -35,5 +37,9 @@ exports.main = async (event, context) => {
     // 获取用户列表
     case '/user/queryListByPage':
       return await queryUserListByPage.main(event, context);
+
+    // 获取模板列表
+    case '/template/queryList':
+      return await queryTemplateList.main(event, context);
   }
 };

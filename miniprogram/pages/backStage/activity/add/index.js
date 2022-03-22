@@ -19,13 +19,14 @@ Page({
     startTime: '',
     endDate: '',
     endTime: '',
+    templateList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: async function (options) {
+    await this.getTemplateList();
   },
 
   /**
@@ -75,6 +76,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  async getTemplateList() {
+    const templateList = await bHttp.template.queryList();
+    this.setData({
+      templateList: templateList
+    });
   },
 
   onInput(e) {

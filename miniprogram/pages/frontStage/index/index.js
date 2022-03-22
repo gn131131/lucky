@@ -6,10 +6,16 @@ const app = getApp();
 
 Page({
   data: {
-    isLogon: false
+    isLogon: false,
+    longTap: false,
+    timeout: null
   },
 
   async onShow() {
+    this.setData({
+      longTap: false
+    });
+
     console.log('全局变量', app.globalData)
     if (app.globalData.userInfo.id) {
       this.setData({
@@ -47,5 +53,22 @@ Page({
       app.globalData.userInfo = userInfo;
       goto(event);
     }
+  },
+
+  onlongtap(event) {
+    const timeout = setTimeout(() => {
+      goto(event);
+    }, 1000);
+    this.setData({
+      longTap: true,
+      timeout: timeout
+    });
+  },
+  
+  ontouchend() {
+    this.data.timeout && clearTimeout(this.data.timeout);
+    this.setData({
+      longTap: false
+    });
   }
 });

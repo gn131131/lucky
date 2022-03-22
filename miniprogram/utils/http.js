@@ -96,4 +96,10 @@ export const bHttp = {
       return utilsService.http('/b/win/queryListByPage', data);
     },
   },
+  template: {
+    // 获取模板列表
+    queryList: () => {
+      return utilsService.http('/b/template/queryList', {});
+    }
+  }
 };

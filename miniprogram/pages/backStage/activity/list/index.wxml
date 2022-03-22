@@ -1,7 +1,8 @@
 <view class="container">
   <button type="default" bindtap="goto" data-url="backStage/activity/add/index">新增</button>
-  <view wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="backStage/activity/view/index" data-item="{{item}}">
+  <view class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="backStage/activity/view/index" data-item="{{item}}">
     <view>{{item.name}}</view>
     <view>奖品：<view wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
+    <button type="warn" catchtap="deleteItem" data-item="{{item}}">删除</button>
   </view>
 </view>

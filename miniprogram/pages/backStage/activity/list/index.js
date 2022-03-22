@@ -86,5 +86,21 @@ Page({
     } else {
       goto(event);
     }
+  },
+
+  async deleteItem(event) {
+    try {
+      const id = event.currentTarget.dataset.item.id;
+      await bHttp.activity.delete([id]);
+      wx.showToast({
+        title: '删除成功'
+      }); 
+      await this.queryListByPage();
+    } catch (e) {
+      console.error(e);
+      wx.showToast({
+        title: '删除失败'
+      }); 
+    }
   }
 })

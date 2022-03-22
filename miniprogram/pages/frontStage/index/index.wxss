@@ -22,3 +22,44 @@
   border-radius: 50%;
   background: #000;
 }
+
+.content {
+  background: #000;
+}
+
+.double-star {
+  width: 400rpx;
+  height: 400rpx;
+}
+
+.rotate-slow {
+  animation: rotate 3s linear infinite;
+}
+
+.rotate-fast {
+  animation: rotate-fast 1s linear forwards;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-fast {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(0);
+  }
+}

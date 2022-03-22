@@ -1,1 +1,12 @@
 /* pages/backStage/activity/list/index.wxss */
+.container {
+  padding: 20rpx;
+}
+.list-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #efefef;
+  padding: 40rpx;
+  border-radius: 10rpx;
+}

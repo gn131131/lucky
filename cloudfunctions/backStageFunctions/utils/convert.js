@@ -69,3 +69,12 @@ exports.WinUser = (params) => {
     winTime: params.win_time
   }
 };
+
+exports.Template = (params) => {
+  return {
+    id: params._id,
+    name: params.name,
+    probability: params.probability,
+    maxBoxNum: params.max_box_num
+  }
+};

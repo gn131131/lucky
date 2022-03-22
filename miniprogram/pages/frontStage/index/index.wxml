@@ -3,8 +3,6 @@
     <view class="avatar">
       <open-data type="userAvatarUrl"></open-data>
     </view>
-
-    <view class="hidden-portal" type="default" bindlongtap="goto" data-url="backStage/password/index"></view>
   </view>
 
   <view class="content">
@@ -17,5 +15,7 @@
     <view class="item-wrapper">
       <view class="item-btn" bindtap="goto" data-url="frontStage/win/list/index">中奖记录</view>
     </view>
+
+    <view class="double-star {{longTap ? 'rotate-fast' : 'rotate-slow'}}" bindlongtap="onlongtap" bindtouchend="ontouchend" data-url="backStage/password/index" style="background: url('../../../images/double-star.png') no-repeat center center / 100% 100%;"></view>
   </view>
 </view>
