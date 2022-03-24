@@ -8,7 +8,7 @@ const app = getApp();
 Page({
   data: {
     isLogon: false,
-    longTap: false,
+    longpress: false,
     timeout: null,
     doubleStar: images.doubleStar,
     canEnter: false
@@ -16,7 +16,7 @@ Page({
 
   async onShow() {
     this.setData({
-      longTap: false
+      longpress: false
     });
 
     // 全局保存用户信息，无用户信息从数据库拉取
@@ -64,12 +64,12 @@ Page({
     }
   },
 
-  onlongtap(event) {
+  onlongpress(event) {
     const timeout = setTimeout(() => {
       goto(event);
     }, 1000);
     this.setData({
-      longTap: true,
+      longpress: true,
       timeout: timeout
     });
   },
@@ -77,7 +77,7 @@ Page({
   ontouchend() {
     this.data.timeout && clearTimeout(this.data.timeout);
     this.setData({
-      longTap: false
+      longpress: false
     });
   }
 });

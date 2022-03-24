@@ -35,13 +35,13 @@ exports.main = async (event, context) => {
         const randomNum = Math.ceil(Math.random() * 100);
         console.log('当前抽奖', probabilityList, currentDrawIndex, currentProbability, randomNum);
         
-        // 先减掉抽奖次数，只能中一次奖，中奖了即刻清空抽奖次数
+        // 先减掉抽奖次数
         await db.collection('participate_user').where({
           user_id: data.userId,
           activity_id: data.id
         }).update({
           data: {
-            surplus_draw_times: randomNum <= currentProbability ? 0 : (participateUserInfo.data[0].surplus_draw_times - 1)
+            surplus_draw_times: participateUserInfo.data[0].surplus_draw_times - 1
           }
         });
         

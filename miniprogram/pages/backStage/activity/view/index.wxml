@@ -6,6 +6,8 @@
       <view>中奖人数：{{activityData.winNum}}</view>
       <view>活动时间：{{activityData.activeTimeRange}}</view>
       <view>最大卡片数：{{activityData.maxBoxNum}}</view>
+      <view>展示概率：{{activityData.showProbability}}%</view>
+      <view>真实概率：{{activityData.probability}}</view>
       <view>奖品：
         <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
       </view>
@@ -19,17 +21,17 @@
       </view>
     </view>
 
-    <view>模拟次数：<input bindinput="onInput"></input></view>
+    <view>模拟人数：<input bindinput="onInput"></input></view>
     <button type="primary" bindtap="batchDraw">批量模拟抽奖</button>
 
     <view class="table">
       <view class="tr">
-        <view class="td">获奖所用抽取次数</view>
-        <view class="td">抽中次数</view>
+        <view class="td">中奖次数</view>
+        <view class="td">中奖人数</view>
       </view>
       <view class="tr" wx:for="{{resultArr}}" wx:key="index">
-        <view class="td">{{item.drawTimes}}</view>
-        <view class="td">{{item.winTimes}}</view>
+        <view class="td">{{item.winTimes === 0 ? '未中奖' : item.winTimes}}</view>
+        <view class="td">{{item.count}}</view>
       </view>
     </view>
   </view>

@@ -87,7 +87,7 @@ Page({
   },
 
   onInput(e) {
-    const times = e.detail.value;
+    const times = +e.detail.value;
     this.setData({
       batchDrawTimes: times
     });
@@ -96,61 +96,68 @@ Page({
   async batchDraw() {
     const result = await bHttp.activity.queryById(this.data.activityId);
     console.log(result);
+
+    const res = JSON.parse(JSON.stringify(result));
+    res.surplusDrawTimes = result.drawTimes;
     
     const tempArr = [];
     for (let i = this.data.batchDrawTimes; i--;) {
-      const res = JSON.parse(JSON.stringify(result));
-      res.surplusDrawTimes = result.drawTimes;
-      this.doDraw(res, tempArr);
+      const params = {
+        drawTimes: res.drawTimes,
+        surplusDrawTimes: res.surplusDrawTimes,
+        probability: res.probability
+      };
+      this.doDraw(params, tempArr, true);
     }
 
     const resultArr = [];
     tempArr.forEach(item => {
-      const element = resultArr.find(ele => ele.drawTimes === item.drawTimes);
+      const element = resultArr.find(ele => ele.winTimes === item.winTimes);
       if (element) {
-        if (item.win) {
-          element.winTimes++;
-        }
+        element.count++;
       } else {
         resultArr.push({
-          drawTimes: item.drawTimes,
-          winTimes: item.win ? 1 : 0
+          count: 1,
+          winTimes: item.winTimes
         });
       }
     });
 
     this.setData({
       resultArr: resultArr.sort((a, b) => {
-        return a.drawTimes - b.drawTimes
+        return a.winTimes - b.winTimes
       })
     });
   },
 
-  doDraw(result, arr) {
-    if (result.drawTimes > 0) {
+  doDraw(result, arr, isNew) {
+    if (result.surplusDrawTimes > 0) {
       // 当前活动抽奖概率
       const probabilityList = JSON.parse(result.probability || '[]');
       // 当前抽取次数
       const currentDrawIndex = result.drawTimes - result.surplusDrawTimes;
       // 当前抽奖概率
-      const currentProbability = probabilityList[currentDrawIndex];
+      const currentProbability = +probabilityList[currentDrawIndex];
       // 随机数
       const randomNum = Math.ceil(Math.random() * 100);
       
       result.surplusDrawTimes--;
-      if (randomNum <= currentProbability) {
-        arr.push({
-          drawTimes: result.drawTimes - result.surplusDrawTimes,
-          win: true
-        });
+      if (isNew) {
+        if (randomNum <= currentProbability) {
+          arr.push({
+            winTimes: 1
+          });
+        } else {
+          arr.push({
+            winTimes: 0
+          });
+        }
       } else {
-        this.doDraw(result, arr);
-      };
-    } else {
-      arr.push({
-        drawTimes: result.drawTimes - result.surplusDrawTimes,
-        win: false
-      });
+        if (randomNum <= currentProbability) {
+          arr[arr.length - 1].winTimes++;
+        }
+      }
+      this.doDraw(result, arr, false);
     }
   }
 })

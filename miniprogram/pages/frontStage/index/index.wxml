@@ -16,7 +16,7 @@
       <view class="item-btn" bindtap="goto" data-url="frontStage/win/list/index">中奖记录</view>
     </view>
 
-    <view class="double-star {{longTap ? 'rotate-fast' : 'rotate-slow'}}" bindlongtap="onlongtap" bindtouchend="ontouchend" data-url="backStage/password/index">
+    <view class="double-star {{longpress ? 'rotate-fast' : 'rotate-slow'}}" bindlongpress="onlongpress" bindtouchend="ontouchend" data-url="backStage/password/index">
       <image src="{{doubleStar}}"></image>
     </view>
   </view>
