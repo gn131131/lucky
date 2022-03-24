@@ -23,6 +23,7 @@ exports.main = async (event, context) => {
         draw_times: data.drawTimes,
         activity_code: data.activityCode,
         probability: data.probability,
+        show_probability: data.showProbability,
         publish_status: data.publishStatus,
         status: data.status,
         create_time: new Date().getTime(),

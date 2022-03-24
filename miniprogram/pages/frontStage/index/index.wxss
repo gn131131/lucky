@@ -8,11 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   font-size: 50rpx;
-  background: lightskyblue;
-  border: 1px solid #efefef;
-  border-radius: 20rpx;
+  color: lightgoldenrodyellow;
 }
 
 .hidden-portal {
@@ -28,6 +25,7 @@
 }
 
 .double-star {
+  margin: 0 auto;
   width: 400rpx;
   height: 400rpx;
 }

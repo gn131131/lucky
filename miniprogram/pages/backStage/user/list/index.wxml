@@ -1,2 +1,10 @@
-<!--pages/backStage/user/list/index.wxml-->
-<text>pages/backStage/user/list/index.wxml</text>
+<view class="container">
+  <view class="content">
+    <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id">
+      <view>用户昵称：{{item.nickName}}</view>
+      <view>用户头像：<image class="avatar" src="{{item.avatarUrl}}"></image></view>
+      <view>创建时间：{{item.updateTime}}</view>
+    </view> 
+    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
+  </view>
+</view>

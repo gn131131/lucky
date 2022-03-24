@@ -14,6 +14,7 @@ view {
 }
 
 button {
+  margin: 40rpx auto;
   background: initial;
 }
 
@@ -33,8 +34,20 @@ page {
 }
 
 input {
+  margin: 40rpx;
+  height: 80rpx;
   background: #fff;
-  border: 1px solid #efefef;
+  border: 1px solid #ccc;
+  border-radius: 15rpx;
+}
+
+picker {
+  margin: 10rpx auto;
+}
+
+image {
+  width: 100%;
+  height: 100%;
 }
 
 .avatar {
@@ -82,4 +95,18 @@ input {
   align-items: center;
   flex: 1;
   border: 1px solid #000;
+}
+
+.no-data {
+  margin: 20rpx auto;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  background: lightsteelblue;
+  border: #efefef;
+  border-radius: 20rpx;
 }

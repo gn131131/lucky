@@ -19,7 +19,7 @@ exports.main = async (event, context) => {
     const res = await db.collection('user').skip(pageSize * (pageNum - 1)).limit(pageSize).get();
     return {
       success: true,
-      data: {records: convert.User(res.data), page: {pageSize: pageSize, pageNum: pageNum, total: total}}
+      data: {records: res.data.map(item => convert.User(item)), page: {pageSize: pageSize, pageNum: pageNum, total: total}}
     };
   } catch (e) {
     return {

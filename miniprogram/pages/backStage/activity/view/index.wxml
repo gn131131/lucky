@@ -1,34 +1,36 @@
 <view class="container">
-  <view>
-    <view>活动名称：{{activityData.name}}</view>
-    <view>参与人数：{{activityData.participateNum}}</view>
-    <view>中奖人数：{{activityData.winNum}}</view>
-    <view>活动时间：{{activityData.activeTimeRange}}</view>
-    <view>最大宝箱数：{{activityData.maxBoxNum}}</view>
-    <view>奖品：
-      <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
-    </view>
-    <view>参与用户列表：
-      <view wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
-        <view>{{user.nickName}}</view>
-        <image src="{{user.avatarUrl}}"></image>
-        <view>抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
-        <view>剩余抽奖次数：{{user.surplusDrawTimes}}</view>
+  <view class="content">
+    <view>
+      <view>活动名称：{{activityData.name}}</view>
+      <view>参与人数：{{activityData.participateNum}}</view>
+      <view>中奖人数：{{activityData.winNum}}</view>
+      <view>活动时间：{{activityData.activeTimeRange}}</view>
+      <view>最大卡片数：{{activityData.maxBoxNum}}</view>
+      <view>奖品：
+        <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
+      </view>
+      <view>参与用户列表：
+        <view wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
+          <view>{{user.nickName}}</view>
+          <image src="{{user.avatarUrl}}"></image>
+          <view>抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
+          <view>剩余抽奖次数：{{user.surplusDrawTimes}}</view>
+        </view>
       </view>
     </view>
-  </view>
 
-  <view>模拟次数：<input bindinput="onInput"></input></view>
-  <button type="primary" bindtap="batchDraw">批量模拟抽奖</button>
+    <view>模拟次数：<input bindinput="onInput"></input></view>
+    <button type="primary" bindtap="batchDraw">批量模拟抽奖</button>
 
-  <view class="table">
-    <view class="tr">
-      <view class="td">获奖所用抽取次数</view>
-      <view class="td">抽中次数</view>
-    </view>
-    <view class="tr" wx:for="{{resultArr}}" wx:key="index">
-      <view class="td">{{item.drawTimes}}</view>
-      <view class="td">{{item.winTimes}}</view>
+    <view class="table">
+      <view class="tr">
+        <view class="td">获奖所用抽取次数</view>
+        <view class="td">抽中次数</view>
+      </view>
+      <view class="tr" wx:for="{{resultArr}}" wx:key="index">
+        <view class="td">{{item.drawTimes}}</view>
+        <view class="td">{{item.winTimes}}</view>
+      </view>
     </view>
   </view>
 </view>

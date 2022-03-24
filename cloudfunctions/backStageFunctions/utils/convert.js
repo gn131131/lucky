@@ -12,6 +12,7 @@ exports.Activity = (params) => {
     prizeList: params.prizeList ? params.prizeList.map(item => this.Prize(item)) : [],
     participateUserList: params.participateUserList ? params.participateUserList.map(item => this.ParticipateUser(item)) : [],
     probability: params.probability,
+    showProbability: params.show_probability,
     publishStatus: params.publish_status,
     status: params.status,
     createTime: params.create_time,

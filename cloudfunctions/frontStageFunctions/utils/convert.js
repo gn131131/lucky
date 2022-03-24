@@ -6,14 +6,9 @@ exports.Activity = (params) => {
     winNum: params.win_num,
     watchNum: params.watch_num,
     activeTimeRange: params.active_time_range,
-    maxBoxNum: params.max_box_num,
-    drawTimes: params.draw_times,
-    activityCode: params.activity_code,
     prizeList: params.prizeList ? params.prizeList.map(item => this.Prize(item)) : [],
     participateUserList: params.participateUserList ? params.participateUserList.map(item => this.ParticipateUser(item)) : [],
-    probability: params.probability,
-    publishStatus: params.publish_status,
-    status: params.status,
+    showProbability: params.show_probability,
     createTime: params.create_time,
     updateTime: params.update_time
   }

@@ -1,3 +1,6 @@
+import { bHttp } from "../../../../utils/http";
+import { transDate } from "../../../../utils/service";
+
 // pages/backStage/user/list/index.js
 Page({
 
@@ -5,7 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list: [],
+    page: {
+      pageNum: 1,
+      pageSize: 10
+    }
   },
 
   /**
@@ -26,7 +33,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.queryListByPage();
   },
 
   /**
@@ -62,5 +69,16 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  async queryListByPage() {
+    const res = await bHttp.user.queryListByPage({page: this.data.page});
+    this.setData({
+      list: res.records.map(item => {
+        item.updateTime = transDate(item.updateTime);
+        return item;
+      }),
+      page: res.page
+    });
+  },
 })

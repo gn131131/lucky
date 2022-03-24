@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
     const countResult = await db.collection('win_user').count();
     const total = countResult.total;
     // 查询数据库信息
-    const res = await db.collection('win_user').skip(pageSize * (pageNum - 1)).limit(pageSize).end();
+    const res = await db.collection('win_user').skip(pageSize * (pageNum - 1)).limit(pageSize).get();
     console.log('查询结果', res.data);
 
     return {

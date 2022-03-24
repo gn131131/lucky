@@ -4,6 +4,7 @@ const checkCode = require('./activity/checkCode');
 const participate = require('./activity/participate');
 const watch = require('./activity/watch');
 const draw = require('./activity/draw');
+const getSurplusDrawTimes = require('./activity/getSurplusDrawTimes');
 
 const queryHistoryListByPage = require('./history/queryListByPage');
 
@@ -36,6 +37,9 @@ exports.main = async (event, context) => {
     // 抽奖
     case '/activity/draw':
       return await draw.main(event, context);
+    // 获取当前用户剩余抽奖次数
+    case '/activity/getSurplusDrawTimes':
+      return await getSurplusDrawTimes.main(event, context);
       
     // 获取活动历史记录列表
     case '/history/queryListByPage':

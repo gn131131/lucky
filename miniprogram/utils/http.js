@@ -46,6 +46,10 @@ export const fHttp = {
     watch: (id, userId) => {
       return utilsService.http('/f/activity/watch', {id, userId});
     },
+    // 获取当前用户剩余抽奖次数
+    getSurplusDrawTimes: (id, userId) => {
+      return utilsService.http('/f/activity/getSurplusDrawTimes', {id, userId});
+    },
   },
   history: {
     // 获取当前用户历史记录列表

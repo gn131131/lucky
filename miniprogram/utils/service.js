@@ -41,6 +41,7 @@ export const goto = (event, params) => {
   });
 };
 
+// 转换日期
 export const transDate = (timestamp) => {
   if (timestamp) {
     const date = new Date(+timestamp);
@@ -56,6 +57,7 @@ export const transDate = (timestamp) => {
   return '';
 };
 
+// 补零
 export const zeroFilling = (num) => {
   return num.toString().padStart(2, '0');
 };

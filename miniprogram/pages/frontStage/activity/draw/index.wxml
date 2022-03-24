@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="header">
+    <view class="avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+  </view>
+  
+  <view class="content">
+    <view wx:if="{{!isParticipate}}">
+      请输入活动码：
+      <input bindinput="onInput"></input>
+      <button type="primary" bindtap="verifyActivityCode">验证活动码</button>
+    </view>
+
+    <view wx:if="{{isParticipate}}">
+      <view>当前中奖概率：{{showProbability}}%</view>
+      <view>剩余抽奖次数：{{surplusDrawTimes}}</view>
+      <button type="primary" bindtap="draw">抽奖</button>
+    </view>
+  </view>
+</view>

@@ -7,7 +7,7 @@
 
   <view class="content">
     <view class="item-wrapper">
-      <view class="item-btn" bindtap="goto" data-url="frontStage/activity/list/index">活动列表</view>
+      <view class="item-btn" bindtap="goto" data-url="frontStage/activity/list/index">所有活动</view>
     </view>
     <view class="item-wrapper">
       <view class="item-btn" bindtap="goto" data-url="frontStage/history/list/index">参与活动记录</view>
@@ -16,6 +16,8 @@
       <view class="item-btn" bindtap="goto" data-url="frontStage/win/list/index">中奖记录</view>
     </view>
 
-    <view class="double-star {{longTap ? 'rotate-fast' : 'rotate-slow'}}" bindlongtap="onlongtap" bindtouchend="ontouchend" data-url="backStage/password/index" style="background: url('../../../images/double-star.png') no-repeat center center / 100% 100%;"></view>
+    <view class="double-star {{longTap ? 'rotate-fast' : 'rotate-slow'}}" bindlongtap="onlongtap" bindtouchend="ontouchend" data-url="backStage/password/index">
+      <image src="{{doubleStar}}"></image>
+    </view>
   </view>
 </view>

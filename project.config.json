@@ -41,7 +41,7 @@
   },
   "appid": "wx4c1a0508bc5ac72c",
   "projectname": "lucky",
-  "libVersion": "2.20.1",
+  "libVersion": "2.23.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "search": {

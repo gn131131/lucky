@@ -1,1 +1,5 @@
 /* pages/backStage/activity/add/index.wxss */
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+}

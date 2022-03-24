@@ -1,30 +1,59 @@
 <view class="container">
-  <input placeholder="活动名称" value="{{formValue.name}}" bindinput="onInput" data-key="name"></input>
-  <picker mode="date" bindchange="dateChange" data-key="startDate">
-    <view>活动起始日期：{{startDate}}</view>
-  </picker>
-  <picker mode="time" bindchange="dateChange" data-key="startTime">
-    <view>活动起始时间：{{startTime}}</view>
-  </picker>
-  <picker mode="date" bindchange="dateChange" data-key="endDate">
-    <view>活动结束日期：{{endDate}}</view>
-  </picker>
-  <picker mode="time" bindchange="dateChange" data-key="endTime">
-    <view>活动结束时间：{{endTime}}</view>
-  </picker>
-  <input placeholder="最大宝箱数" value="{{formValue.maxBoxNum}}" type="number" bindinput="onInput" data-key="maxBoxNum"></input>
-  <input placeholder="抽取次数" value="{{formValue.drawTimes}}" type="number" bindinput="onInput" data-key="drawTimes"></input>
-  <input placeholder="活动码" value="{{formValue.activityCode}}" bindinput="onInput" data-key="activityCode"></input>
+  <view class="content">
+    <view>
+      活动名称：
+      <input placeholder="活动名称" value="{{formValue.name}}" bindinput="onInput" data-key="name"></input>
+    </view>
+    <picker mode="date" bindchange="dateChange" data-key="startDate">
+      <view>活动起始日期：{{startDate}}</view>
+    </picker>
+    <picker mode="time" bindchange="dateChange" data-key="startTime">
+      <view>活动起始时间：{{startTime}}</view>
+    </picker>
+    <picker mode="date" bindchange="dateChange" data-key="endDate">
+      <view>活动结束日期：{{endDate}}</view>
+    </picker>
+    <picker mode="time" bindchange="dateChange" data-key="endTime">
+      <view>活动结束时间：{{endTime}}</view>
+    </picker>
+    <view>
+      用户抽取次数：
+      <input placeholder="用户抽取次数：" value="{{formValue.drawTimes}}" type="number" bindinput="onInput" data-key="drawTimes"></input>
+    </view>
+    <view>
+      活动码：
+      <input placeholder="活动码" value="{{formValue.activityCode}}" bindinput="onInput" data-key="activityCode"></input>
+    </view>
 
-  <view wx:for="{{prizeList}}" wx:key="index">
-    <input bindinput="onInputPrize" data-index="{{index}}"></input>
-  </view>
-  <button type="default" bindtap="addPrize">添加礼物</button>
-  <button type="default" bindtap="calProbability">生成概率</button>
-  <view wx:for="{{probability}}" wx:key="index">
-    <input bindinput="onInputProbability" data-index="{{index}}" value="{{item}}"></input>
-  </view>
+    <view>礼物名称：
+      <view wx:for="{{prizeList}}" wx:key="index">
+        <input bindinput="onInputPrize" data-index="{{index}}"></input>
+      </view>
+    </view>
+    <view>
+      最大卡牌数：{{formValue.maxBoxNum}}
+    </view>
+    <!-- <button type="default" bindtap="addPrize">添加礼物</button> -->
+    <view wx:for="{{probability}}" wx:key="index">
+      第{{index + 1}}次概率：
+      <input bindinput="onInputProbability" data-index="{{index}}" value="{{item}}"></input>
+    </view>
+    <view class="btn-wrapper">
+      <button type="default" bindtap="onAddTrueProbability">手动添加真实概率</button>
+      <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectTrueTemplate">
+        <button type="primary">选择真实概率模板</button>
+      </picker>  
+    </view>
+    <view>
+      展示概率：{{formValue.showProbability}}%
+    </view>
+    <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectShowTemplate">
+      <button type="primary">选择展示概率模板</button>
+    </picker>
 
-  <button type="default" bindtap="onSave" data-status="0">保存</button>
-  <button type="primary" bindtap="onSave" data-status="1">发布</button>
+    <view class="btn-wrapper">
+      <button type="default" bindtap="onSave" data-status="0">保存</button>
+      <button type="primary" bindtap="onSave" data-status="1">发布</button>
+    </view>  
+  </view>
 </view>

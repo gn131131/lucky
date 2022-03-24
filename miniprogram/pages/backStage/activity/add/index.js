@@ -11,9 +11,10 @@ Page({
     prizeList: [''],
     formValue: {
       name: '活动',
-      maxBoxNum: 5,
-      drawTimes: 1,
-      activityCode: 'abcd1234'
+      maxBoxNum: 0,
+      drawTimes: 5,
+      activityCode: 'abcd1234',
+      showProbability: 0
     },
     startDate: '',
     startTime: '',
@@ -25,8 +26,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
-    await this.getTemplateList();
+  onLoad: function (options) {
+    
   },
 
   /**
@@ -39,8 +40,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  async onShow() {
+    await this.getTemplateList();
   },
 
   /**
@@ -92,24 +93,6 @@ Page({
     this.setData({
       formValue: this.data.formValue
     });
-  },
-
-  calProbability() {
-    if (this.data.formValue.maxBoxNum && this.data.prizeList.length > 0) {
-      const probability = [];
-      for (let i = this.data.formValue.maxBoxNum; i--;) {
-        probability.push(0);
-      }
-      this.recalProbability(probability);
-
-      this.setData({
-        probability: probability
-      }); 
-    }
-  },
-
-  recalProbability(probability) {
-
   },
 
   onInputProbability(e) {
@@ -165,5 +148,38 @@ Page({
     } catch (e) {
       console.error(e);
     }
+  },
+
+  onSelectTrueTemplate(event) {
+    const index = event.detail.value;
+    const templateItem = this.data.templateList[index];
+
+    const probability = [];
+    for (let i = templateItem.maxBoxNum; i--;) {
+      probability.push(templateItem.probability);
+    }
+
+    this.data.formValue.maxBoxNum = +templateItem.maxBoxNum
+    this.setData({
+      formValue: this.data.formValue,
+      probability: probability
+    });
+  },
+  onAddTrueProbability() {
+    this.data.probability.push(100);
+    this.data.formValue.maxBoxNum = this.data.probability.length;
+    this.setData({
+      formValue: this.data.formValue,
+      probability: this.data.probability
+    });
+  },
+  onSelectShowTemplate(event) {
+    const index = event.detail.value;
+    const templateItem = this.data.templateList[index];
+
+    this.data.formValue.showProbability = templateItem.probability;
+    this.setData({
+      formValue: this.data.formValue
+    });
   }
 })

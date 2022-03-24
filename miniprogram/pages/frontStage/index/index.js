@@ -1,4 +1,5 @@
 // index.js
+import { images } from "../../../utils/constance";
 import { fHttp } from "../../../utils/http";
 import { goto } from "../../../utils/service";
 
@@ -8,7 +9,9 @@ Page({
   data: {
     isLogon: false,
     longTap: false,
-    timeout: null
+    timeout: null,
+    doubleStar: images.doubleStar,
+    canEnter: false
   },
 
   async onShow() {
@@ -16,6 +19,7 @@ Page({
       longTap: false
     });
 
+    // 全局保存用户信息，无用户信息从数据库拉取
     console.log('全局变量', app.globalData)
     if (app.globalData.userInfo.id) {
       this.setData({
@@ -26,10 +30,11 @@ Page({
         const isLogon = await fHttp.user.checkLogon();
         if (isLogon) {
           app.globalData.userInfo = isLogon;
-          this.setData({
-            isLogon: true
-          });
         }
+        this.setData({
+          isLogon: !!isLogon,
+          canEnter: true
+        });
       } catch (e) {
         wx.showToast({
           title: '请求失败'
@@ -51,6 +56,10 @@ Page({
       const userInfo = profile.userInfo;
       userInfo.id = userId;
       app.globalData.userInfo = userInfo;
+      this.setData({
+        isLogon: true,
+        canEnter: true
+      });
       goto(event);
     }
   },

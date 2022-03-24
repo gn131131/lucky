@@ -6,8 +6,9 @@
   </view>
 
   <view class="content">
-    <view class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-item="{{item}}">
+    <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-item="{{item}}">
       <view>{{item.activityName}}</view>
-    </view> 
+    </view>
+    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
   </view>
 </view>
