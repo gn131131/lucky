@@ -73,7 +73,7 @@ export const bHttp = {
     },
     // 查看活动详情
     queryById: (id) => {
-      return utilsService.http('/b/activity/queryById', {id: id});
+      return utilsService.http('/b/activity/queryById', {id});
     },
     // 新增活动
     save: (data) => {
@@ -83,9 +83,13 @@ export const bHttp = {
     update: (data) => {
       return utilsService.http('/b/activity/update', data);
     },
-    // 删除活动
+    // 批量删除活动
     delete: (delIds) => {
-      return utilsService.http('/b/activity/delete', {delIds: delIds});
+      return utilsService.http('/b/activity/delete', {delIds});
+    },
+    // 根据id删除活动
+    deleteById: (id) => {
+      return utilsService.http('/b/activity/deleteById', {id});
     }
   },
   user: {

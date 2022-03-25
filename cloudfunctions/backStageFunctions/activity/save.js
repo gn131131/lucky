@@ -19,7 +19,6 @@ exports.main = async (event, context) => {
         win_num: data.winNum || 0,
         watch_num: data.watchNum || 0,
         active_time_range: data.activeTimeRange,
-        max_box_num: data.maxBoxNum,
         draw_times: data.drawTimes,
         activity_code: data.activityCode,
         probability: data.probability,

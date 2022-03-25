@@ -3,6 +3,7 @@ const queryActivityById = require('./activity/queryById');
 const saveActivity = require('./activity/save');
 const updateActivity = require('./activity/update');
 const deleteActivity = require('./activity/delete');
+const deleteActivityById = require('./activity/deleteById');
 
 const queryWinListByPage = require('./win/queryListByPage');
 
@@ -26,9 +27,12 @@ exports.main = async (event, context) => {
     // 编辑活动
     case '/activity/update':
       return await updateActivity.main(event, context);
-    // 删除活动
+    // 批量删除活动
     case '/activity/delete':
       return await deleteActivity.main(event, context);
+    // 根据id删除活动
+    case '/activity/deleteById':
+      return await deleteActivityById.main(event, context);
 
     // 获取中奖列表
     case '/win/queryListByPage':

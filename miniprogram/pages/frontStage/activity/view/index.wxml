@@ -10,7 +10,7 @@
     <view>参与人数：{{activityData.participateNum}}</view>
     <view>中奖人数：{{activityData.winNum}}</view>
     <view>活动时间：{{activityData.activeTimeRange}}</view>
-    <view>本次中奖概率：{{activityData.showProbability}}%</view>
+    <view>本次中奖概率：{{activityData.showProbability[0]}}%</view>
     <view>奖品：
       <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
     </view>

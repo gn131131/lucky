@@ -5,7 +5,7 @@ cloud.init({
 });
 const db = cloud.database();
 
-// 前端请求活动id, 用户id, 后端确定是否中奖以及奖品id
+// 前端请求活动id, 用户id, 后端确定是否中奖以及奖品id，概率个数设置，抽奖按概率设定走，若中奖则清空概率
 exports.main = async (event, context) => {
   try {
     const data = event.data; // 接收数据
@@ -25,10 +25,26 @@ exports.main = async (event, context) => {
     if (participateUserInfo.data.length > 0) {
       if (participateUserInfo.data[0].surplus_draw_times > 0) {
 
-        // 当前活动抽奖概率
-        const probabilityList = JSON.parse(activityInfo.data.probability || '[]');
-        // 当前抽取次数
-        const currentDrawIndex = participateUserInfo.data[0].draw_times - participateUserInfo.data[0].surplus_draw_times;
+        // 当前活动中奖概率
+        let probabilityList = activityInfo.data.probability;
+        // 当前概率索引，检查之前有没有中奖，中奖的话按最少剩余抽奖次数算当前概率
+        const winArr = await db.collection('win_user').where({
+          activity_id: data.id,
+          user_id: data.userId
+        }).get();
+        let currentDrawIndex = 0;
+        if (winArr.data.length > 0) {
+          const lastWinSurplusDrawTimes = winArr.data.sort((a, b) => {
+            return a.surplus_draw_times - b.surplus_draw_times;
+          })[0].surplus_draw_times;
+          currentDrawIndex = lastWinSurplusDrawTimes - participateUserInfo.data[0].surplus_draw_times;
+        } else {
+          currentDrawIndex = participateUserInfo.data[0].draw_times - participateUserInfo.data[0].surplus_draw_times;
+        }
+        // 索引超长，从头计算
+        if (currentDrawIndex > probabilityList.length - 1) {
+          currentDrawIndex = currentDrawIndex - probabilityList.length;
+        }
         // 当前抽奖概率
         const currentProbability = probabilityList[currentDrawIndex];
         // 随机数

@@ -1,1 +1,6 @@
 /* pages/backStage/activity/view/index.wxss */
+.user-item {
+  border: 1px solid #ccc;
+  border-radius: 10rpx;
+  margin: 20rpx;
+}

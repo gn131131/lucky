@@ -6,7 +6,6 @@ exports.Activity = (params) => {
     winNum: params.win_num,
     watchNum: params.watch_num,
     activeTimeRange: params.active_time_range,
-    maxBoxNum: params.max_box_num,
     drawTimes: params.draw_times,
     activityCode: params.activity_code,
     prizeList: params.prizeList ? params.prizeList.map(item => this.Prize(item)) : [],
@@ -76,6 +75,6 @@ exports.Template = (params) => {
     id: params._id,
     name: params.name,
     probability: params.probability,
-    maxBoxNum: params.max_box_num
+    maxNum: params.max_num
   }
 };

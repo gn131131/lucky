@@ -91,7 +91,7 @@ Page({
   async deleteItem(event) {
     try {
       const id = event.currentTarget.dataset.item.id;
-      await bHttp.activity.delete([id]);
+      await bHttp.activity.deleteById(id);
       wx.showToast({
         title: '删除成功'
       }); 

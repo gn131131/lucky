@@ -10,9 +10,10 @@ Page({
    */
   data: {
     isParticipate: false,
-    activityCode: '',
+    activityCode: 'abcd1234',
     activityId: '',
     showProbability: 0,
+    probability: 0,
     surplusDrawTimes: 0
   },
 
@@ -23,8 +24,7 @@ Page({
     console.log('是否已参与', options.isParticipate);
     this.setData({
       activityId: options.activityId,
-      isParticipate: options.isParticipate === 'true',
-      showProbability: +options.showProbability
+      isParticipate: options.isParticipate === 'true'
     });
 
     if (this.data.isParticipate) {
@@ -129,7 +129,8 @@ Page({
       const result = await fHttp.activity.draw(this.data.activityId, app.globalData.userInfo.id);
       console.log('抽奖结果', result ? '中奖' : '未中奖');
       wx.showToast({
-        title: result ? '中奖' : '未中奖'
+        title: result ? '中奖' : '未中奖',
+        icon: result ? 'success' : 'error'
       });
 
       await this.getSurplusDrawTimes();
@@ -146,7 +147,9 @@ Page({
       const result = await fHttp.activity.getSurplusDrawTimes(this.data.activityId, app.globalData.userInfo.id);
       
       this.setData({
-        surplusDrawTimes: result
+        surplusDrawTimes: result.surplusDrawTimes,
+        showProbability: result.showProbability,
+        probability: result.probability
       });
     } catch (e) {
       console.error(e);

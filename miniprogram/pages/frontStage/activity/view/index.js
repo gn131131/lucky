@@ -98,6 +98,6 @@ Page({
   },
 
   goto(event) {
-    goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId, showProbability: this.data.activityData.showProbability});
+    goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId});
   },
 })

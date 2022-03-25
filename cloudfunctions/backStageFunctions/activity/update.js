@@ -15,7 +15,6 @@ exports.main = async (event, context) => {
       data: {
         name: data.name,
         active_time_range: data.activeTimeRange,
-        max_box_num: data.maxBoxNum,
         draw_times: data.drawTimes,
         activity_code: data.activityCode,
         probability: data.probability,

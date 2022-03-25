@@ -18,7 +18,7 @@
     </picker>
     <view>
       用户抽取次数：
-      <input placeholder="用户抽取次数：" value="{{formValue.drawTimes}}" type="number" bindinput="onInput" data-key="drawTimes"></input>
+      <input placeholder="用户抽取次数：" value="{{formValue.drawTimes}}" type="number" bindinput="onInput" data-key="drawTimes" data-type="number"></input>
     </view>
     <view>
       活动码：
@@ -27,29 +27,39 @@
 
     <view>礼物名称：
       <view wx:for="{{prizeList}}" wx:key="index">
-        <input bindinput="onInputPrize" data-index="{{index}}"></input>
+        <input bindinput="onInputPrize" data-index="{{index}}" value='{{item}}'></input>
       </view>
     </view>
     <view>
-      最大卡牌数：{{formValue.maxBoxNum}}
+      设定概率个数：{{probability.length}}
     </view>
     <!-- <button type="default" bindtap="addPrize">添加礼物</button> -->
-    <view wx:for="{{probability}}" wx:key="index">
-      第{{index + 1}}次概率：
-      <input bindinput="onInputProbability" data-index="{{index}}" value="{{item}}"></input>
+    <view class="table">
+      <view class="tr">
+        <view class="td">索引</view>
+        <view class="td td-2x">计算概率</view>
+        <view class="td td-2x">展示概率</view>
+      </view>
+      <view class="tr" wx:for="{{probability}}" wx:key="index">
+        <view class="td">{{index + 1}}</view>
+        <view class="td td-2x"><input bindinput="onInputProbability" data-index="{{index}}" value="{{item}}"></input>%</view>
+        <view class="td td-2x"><input bindinput="onInputShowProbability" data-index="{{index}}" value="{{showProbability[index]}}"></input>%</view>
+      </view>
     </view>
     <view class="btn-wrapper">
-      <button type="default" bindtap="onAddTrueProbability">手动添加真实概率</button>
-      <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectTrueTemplate">
-        <button type="primary">选择真实概率模板</button>
+      <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectTemplate">
+        <button type="primary">选择计算概率模板</button>
       </picker>  
+      <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectShowTemplate">
+        <button type="default">选择展示概率模板</button>
+      </picker>
     </view>
-    <view>
-      展示概率：{{formValue.showProbability}}%
+    <view class="btn-wrapper">
+      <button type="default" bindtap="onAddProbability">增加一个概率</button>
     </view>
-    <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectShowTemplate">
-      <button type="primary">选择展示概率模板</button>
-    </picker>
+    <view class="btn-wrapper">
+      <button type="default" bindtap="onRemoveProbability">删除一个概率</button>
+    </view>
 
     <view class="btn-wrapper">
       <button type="default" bindtap="onSave" data-status="0">保存</button>

@@ -5,14 +5,24 @@
       <view>参与人数：{{activityData.participateNum}}</view>
       <view>中奖人数：{{activityData.winNum}}</view>
       <view>活动时间：{{activityData.activeTimeRange}}</view>
-      <view>最大卡片数：{{activityData.maxBoxNum}}</view>
-      <view>展示概率：{{activityData.showProbability}}%</view>
-      <view>真实概率：{{activityData.probability}}</view>
+      <view>活动抽取次数：{{activityData.drawTimes}}</view>
+      <view class="table">
+        <view class="tr">
+          <view class="td">索引</view>
+          <view class="td td-2x">计算概率</view>
+          <view class="td td-2x">展示概率</view>
+        </view>
+        <view class="tr" wx:for="{{activityData.probability}}" wx:key="index">
+          <view class="td">{{index + 1}}</view>
+          <view class="td td-2x">{{item}}%</view>
+          <view class="td td-2x">{{activityData.showProbability[index]}}%</view>
+        </view>
+      </view>
       <view>奖品：
         <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
       </view>
       <view>参与用户列表：
-        <view wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
+        <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
           <view>{{user.nickName}}</view>
           <image src="{{user.avatarUrl}}"></image>
           <view>抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
@@ -21,17 +31,37 @@
       </view>
     </view>
 
-    <view>模拟人数：<input bindinput="onInput"></input></view>
-    <button type="primary" bindtap="batchDraw">批量模拟抽奖</button>
+    <view>模拟人数抽奖：</view>
+    <view>输入：<input bindinput="onInput"></input></view>
+    <view>人数：{{userCount}}</view>
+    <view>每人抽取次数：{{activityData.drawTimes}}</view>
+    <view>总抽取次数：{{activityData.drawTimes * userCount}}</view>
+    <button type="primary" bindtap="batchDraw">开始计算</button>
 
     <view class="table">
       <view class="tr">
         <view class="td">中奖次数</view>
         <view class="td">中奖人数</view>
+        <view class="td">占比</view>
       </view>
-      <view class="tr" wx:for="{{resultArr}}" wx:key="index">
+      <view class="tr" wx:for="{{timesArr}}" wx:key="index">
         <view class="td">{{item.winTimes === 0 ? '未中奖' : item.winTimes}}</view>
         <view class="td">{{item.count}}</view>
+        <view class="td">{{item.percent}}%</view>
+      </view>
+    </view>
+    <view class="table" style="margin-top: 20rpx;">
+      <view class="tr">
+        <view class="td">设定概率</view>
+        <view class="td">中次</view>
+        <view class="td">抽次</view>
+        <view class="td">模拟概率</view>
+      </view>
+      <view class="tr" wx:for="{{proArr}}" wx:key="index">
+        <view class="td">{{item.currentProbability ? item.currentProbability + '%' : '统计'}}</view>
+        <view class="td">{{item.count}}</view>
+        <view class="td">{{item.drawTimes}}</view>
+        <view class="td">{{item.percent}}%</view>
       </view>
     </view>
   </view>
