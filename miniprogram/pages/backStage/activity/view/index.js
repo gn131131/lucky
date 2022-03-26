@@ -124,12 +124,31 @@ Page({
 
     try {
       await bHttp.activity.update(this.data.activityData);
-      wx.showToast({
+      await wx.showToast({
         title: '更新成功'
       });
-      wx.navigateBack();
+      setTimeout(() => {
+        wx.navigateBack();
+      }, 1500);
     } catch (e) {
       console.error(e);
+    }
+  },
+
+  async deleteItem() {
+    try {
+      await bHttp.activity.deleteById(this.data.activityData.id);
+      await wx.showToast({
+        title: '删除成功'
+      });
+      setTimeout(() => {
+        wx.navigateBack();
+      }, 1500);
+    } catch (e) {
+      console.error(e);
+      wx.showToast({
+        title: '删除失败'
+      }); 
     }
   },
 

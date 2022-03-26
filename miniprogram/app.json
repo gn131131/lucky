@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/backStage/activity/list/index",
     
     "pages/frontStage/index/index",
 
@@ -9,7 +10,7 @@
     "pages/backStage/user/list/index",
     "pages/backStage/activity/view/index",
     "pages/backStage/activity/add/index",
-    "pages/backStage/activity/list/index",
+    
     
     "pages/frontStage/activity/list/index",
     "pages/frontStage/activity/view/index",

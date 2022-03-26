@@ -38,6 +38,9 @@
         <button type="default" bindtap="onUpdate" data-status="0">保存</button>
         <button type="primary" bindtap="onUpdate" data-status="1">发布</button>
       </view>
+      <view class="item">
+        <button type="warn" bindtap="deleteItem">删除</button>
+      </view>
       <view class="table item">
         <view class="tr">
           <view class="td">索引</view>
