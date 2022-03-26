@@ -7,3 +7,7 @@
 button {
   width: 100%!important;
 }
+
+picker {
+  flex: 1;
+}

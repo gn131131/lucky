@@ -10,7 +10,7 @@ Page({
   data: {
     activityId: '',
     activityData: {},
-    userCount: 0,
+    userCount: 1000000,
     timesArr: [],
     proArr: []
   },
@@ -77,7 +77,7 @@ Page({
     try {
       const data = await bHttp.activity.queryById(this.data.activityId);
 
-      data.activeTimeRange = data.activeTimeRange.split('#').map(item => transDate(item)).join(' ');
+      data.activeTimeRange = data.activeTimeRange.split('#').map(item => transDate(item)).join(' 到 ');
 
       this.setData({
         activityData: data
@@ -92,6 +92,45 @@ Page({
     this.setData({
       userCount: times
     });
+  },
+
+  onInputFormValue(e) {
+    const value = e.currentTarget.dataset.type === 'number' ? +e.detail.value : e.detail.value;
+    const key = e.currentTarget.dataset.key;
+    this.data.activityData[key] = value;
+    this.setData({
+      activityData: this.data.activityData
+    });
+  },
+
+  async onDisabled(e) {
+    const status = e.currentTarget.dataset.status;
+    this.data.activityData.status = +status;
+    try {
+      await bHttp.activity.update(this.data.activityData);
+      wx.showToast({
+        title: '更新成功'
+      });
+      await this.queryActivityById();
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async onUpdate(e) {
+    const status = e.currentTarget.dataset.status;
+
+    this.data.activityData.publishStatus = +status;
+
+    try {
+      await bHttp.activity.update(this.data.activityData);
+      wx.showToast({
+        title: '更新成功'
+      });
+      wx.navigateBack();
+    } catch (e) {
+      console.error(e);
+    }
   },
 
   async batchDraw() {

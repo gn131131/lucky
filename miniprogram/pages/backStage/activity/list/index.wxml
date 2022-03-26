@@ -1,16 +1,11 @@
 <view class="container">
   <view class="content">
     <button type="default" bindtap="goto" data-url="backStage/activity/add/index">新增</button>
-    <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="backStage/activity/view/index" data-item="{{item}}">
-      <view>{{item.name}}</view>
-      <view>已参与用户数：{{item.participateNum}}</view>
-      <view>奖品：<view wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
-      <view>{{item.publishStatus === 1 ? '已发布' : '暂存'}}</view>
-      <view>{{item.status === 1 ? '启用' : '禁用'}}</view>
-      <view>
-        <button wx:if="{{item.publishStatus === 0}}" type="primary">删除</button>
-        <!-- <button type="primary">启用</button> -->
-      </view>
+    <view wx:if="{{list.length > 0}}" class="list-item {{item.publishStatus === 1 && 'published'}}" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="backStage/activity/view/index" data-item="{{item}}">
+      <view class="disabled-item" wx:if="{{item.status === 0}}">禁用</view>
+      <view class="item-title">{{item.name}}</view>
+      <view class="item">已参与用户数：{{item.participateNum}}</view>
+      <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
     </view>
     <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view> 
   </view>

@@ -1,4 +1,4 @@
 /* pages/backStage/activity/list/index.wxss */
-.container {
-  padding: 20rpx;
+button {
+  margin-bottom: 50rpx;
 }

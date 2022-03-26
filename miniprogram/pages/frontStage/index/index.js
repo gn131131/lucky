@@ -32,8 +32,8 @@ Page({
           app.globalData.userInfo = isLogon;
         }
         this.setData({
-          isLogon: !!isLogon,
-          canEnter: true
+          canEnter: true,
+          isLogon: !!isLogon
         });
       } catch (e) {
         wx.showToast({
@@ -45,22 +45,23 @@ Page({
 
   async goto(event) {
     console.log(app.globalData);
-    if (this.data.isLogon) {
-      goto(event);
-    } else {
-      const profile = await wx.getUserProfile({desc: '用于完善会员资料'});
-      const userId = await fHttp.user.save({
-        nickName: profile.userInfo.nickName,
-        avatarUrl: profile.userInfo.avatarUrl
-      });
-      const userInfo = profile.userInfo;
-      userInfo.id = userId;
-      app.globalData.userInfo = userInfo;
-      this.setData({
-        isLogon: true,
-        canEnter: true
-      });
-      goto(event);
+    if (this.data.canEnter) {
+      if (this.data.isLogon) {
+        goto(event);
+      } else {
+        const profile = await wx.getUserProfile({desc: '用于完善会员资料'});
+        const userId = await fHttp.user.save({
+          nickName: profile.userInfo.nickName,
+          avatarUrl: profile.userInfo.avatarUrl
+        });
+        const userInfo = profile.userInfo;
+        userInfo.id = userId;
+        app.globalData.userInfo = userInfo;
+        this.setData({
+          isLogon: true
+        });
+        goto(event);
+      }
     }
   },
 

@@ -1,12 +1,18 @@
 <view class="container">
   <view class="content">
-    <view>
-      <view>活动名称：{{activityData.name}}</view>
-      <view>参与人数：{{activityData.participateNum}}</view>
-      <view>中奖人数：{{activityData.winNum}}</view>
-      <view>活动时间：{{activityData.activeTimeRange}}</view>
-      <view>活动抽取次数：{{activityData.drawTimes}}</view>
-      <view class="table">
+    <view wx:if="{{activityData.publishStatus === 1}}">
+      <view class="item">活动名称：{{activityData.name}}</view>
+      <view class="item">参与人数：{{activityData.participateNum}}</view>
+      <view class="item">中奖次数：{{activityData.winNum}}</view>
+      <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
+      <view class="item">奖品：
+        <view class="view-inline" wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
+      </view>
+      <view class="item">活动抽取次数：{{activityData.drawTimes}}</view>
+      <view class="item">
+        <button type="{{activityData.status === 1 ? 'warn' : 'primary'}}" bindtap="onDisabled" data-status="{{activityData.status === 1 ? 0 : 1}}">{{activityData.status === 1 ? '禁用' : '启用'}}</button>
+      </view>
+      <view class="table item">
         <view class="tr">
           <view class="td">索引</view>
           <view class="td td-2x">计算概率</view>
@@ -18,27 +24,52 @@
           <view class="td td-2x">{{activityData.showProbability[index]}}%</view>
         </view>
       </view>
-      <view>奖品：
-        <view wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
+    </view>
+    <view wx:if="{{activityData.publishStatus === 0}}">
+      <view class="item">活动名称：<input bindinput="onInputFormValue" data-key="name" value="{{activityData.name}}"></input></view>
+      <view class="item">参与人数：{{activityData.participateNum}}</view>
+      <view class="item">中奖次数：{{activityData.winNum}}</view>
+      <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
+      <view class="item">奖品：
+        <view class="view-inline" wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
       </view>
-      <view>参与用户列表：
-        <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
-          <view>{{user.nickName}}</view>
-          <image src="{{user.avatarUrl}}"></image>
-          <view>抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
-          <view>剩余抽奖次数：{{user.surplusDrawTimes}}</view>
+      <view class="item">活动抽取次数：<input bindinput="onInputFormValue" data-key="drawTimes" data-type="number" value="{{activityData.drawTimes}}"></input></view>
+      <view class="item">
+        <button type="default" bindtap="onUpdate" data-status="0">保存</button>
+        <button type="primary" bindtap="onUpdate" data-status="1">发布</button>
+      </view>
+      <view class="table item">
+        <view class="tr">
+          <view class="td">索引</view>
+          <view class="td td-2x">计算概率</view>
+          <view class="td td-2x">展示概率</view>
+        </view>
+        <view class="tr" wx:for="{{activityData.probability}}" wx:key="index">
+          <view class="td">{{index + 1}}</view>
+          <view class="td td-2x">{{item}}%</view>
+          <view class="td td-2x">{{activityData.showProbability[index]}}%</view>
         </view>
       </view>
     </view>
+    <view class="item item-col">参与用户列表：
+      <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
+        <image src="{{user.avatarUrl}}" class="user-avatar"></image>
+        <view class="item">{{user.nickName}}</view>
+        <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
+        <view class="item">剩余抽奖次数：{{user.surplusDrawTimes}}</view>
+      </view>
+    </view>
 
-    <view>模拟人数抽奖：</view>
-    <view>输入：<input bindinput="onInput"></input></view>
-    <view>人数：{{userCount}}</view>
-    <view>每人抽取次数：{{activityData.drawTimes}}</view>
-    <view>总抽取次数：{{activityData.drawTimes * userCount}}</view>
-    <button type="primary" bindtap="batchDraw">开始计算</button>
+    <view class="item">模拟人数抽奖：</view>
+    <view class="item">输入人数：<input class="view-inline" bindinput="onInput" value="1000000"></input></view>
+    <view class="item">人数：{{userCount}}</view>
+    <view class="item">每人抽取次数：{{activityData.drawTimes}}</view>
+    <view class="item">总抽取次数：{{activityData.drawTimes * userCount}}</view>
+    <view class="item">
+      <button type="primary" bindtap="batchDraw">开始计算</button>
+    </view>
 
-    <view class="table">
+    <view class="table item">
       <view class="tr">
         <view class="td">中奖次数</view>
         <view class="td">中奖人数</view>
@@ -50,7 +81,7 @@
         <view class="td">{{item.percent}}%</view>
       </view>
     </view>
-    <view class="table" style="margin-top: 20rpx;">
+    <view class="table item" style="margin-top: 20rpx;">
       <view class="tr">
         <view class="td">设定概率</view>
         <view class="td">中次</view>

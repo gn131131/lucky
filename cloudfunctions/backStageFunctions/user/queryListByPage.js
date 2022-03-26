@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
     const countResult = await db.collection('user').count();
     const total = countResult.total;
     // 查询数据库信息
-    const res = await db.collection('user').skip(pageSize * (pageNum - 1)).limit(pageSize).get();
+    const res = await db.collection('user').orderBy('update_time', 'desc').skip(pageSize * (pageNum - 1)).limit(pageSize).get();
     return {
       success: true,
       data: {records: res.data.map(item => convert.User(item)), page: {pageSize: pageSize, pageNum: pageNum, total: total}}

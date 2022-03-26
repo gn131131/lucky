@@ -14,10 +14,8 @@ exports.main = async (event, context) => {
     await db.collection('activity').doc(data.id).update({
       data: {
         name: data.name,
-        active_time_range: data.activeTimeRange,
         draw_times: data.drawTimes,
         activity_code: data.activityCode,
-        probability: data.probability,
         publish_status: data.publishStatus,
         status: data.status,
         update_time: new Date().getTime()

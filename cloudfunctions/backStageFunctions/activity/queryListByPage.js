@@ -16,7 +16,11 @@ exports.main = async (event, context) => {
     const countResult = await db.collection('activity').count();
     const total = countResult.total;
     // 查询数据库信息，lookup查询奖品列表
-    const res = await db.collection('activity').aggregate().lookup({
+    const res = await db.collection('activity').aggregate()
+    .sort({
+      update_time: -1
+    })
+    .lookup({
       from: 'prize',
       localField: '_id',
       foreignField: 'activity_id',

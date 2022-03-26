@@ -17,6 +17,9 @@ exports.main = async (event, context) => {
     const total = countResult.total;
     // 查询数据库信息，发布且启用状态，lookup查询奖品列表
     const res = await db.collection('activity').aggregate()
+    .sort({
+      update_time: -1
+    })
     .match({
       publish_status: 1,
       status: 1

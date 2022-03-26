@@ -1,40 +1,48 @@
 <view class="container">
   <view class="content">
-    <view>
+    <view class="item">
       活动名称：
-      <input placeholder="活动名称" value="{{formValue.name}}" bindinput="onInput" data-key="name"></input>
+      <input class="view-inline" placeholder="活动名称" value="{{formValue.name}}" bindinput="onInput" data-key="name"></input>
     </view>
-    <picker mode="date" bindchange="dateChange" data-key="startDate">
-      <view>活动起始日期：{{startDate}}</view>
-    </picker>
-    <picker mode="time" bindchange="dateChange" data-key="startTime">
-      <view>活动起始时间：{{startTime}}</view>
-    </picker>
-    <picker mode="date" bindchange="dateChange" data-key="endDate">
-      <view>活动结束日期：{{endDate}}</view>
-    </picker>
-    <picker mode="time" bindchange="dateChange" data-key="endTime">
-      <view>活动结束时间：{{endTime}}</view>
-    </picker>
-    <view>
+    <view class="item">
+      <picker mode="date" bindchange="dateChange" data-key="startDate">
+        <view>活动起始日期：{{startDate}}</view>
+      </picker>
+    </view>
+    <view class="item">
+      <picker mode="time" bindchange="dateChange" data-key="startTime">
+        <view>活动起始时间：{{startTime}}</view>
+      </picker>
+    </view>
+    <view class="item">
+      <picker mode="date" bindchange="dateChange" data-key="endDate">
+        <view>活动结束日期：{{endDate}}</view>
+      </picker>
+    </view>
+    <view class="item">
+      <picker mode="time" bindchange="dateChange" data-key="endTime">
+        <view>活动结束时间：{{endTime}}</view>
+      </picker>
+    </view>
+    <view class="item">
       用户抽取次数：
-      <input placeholder="用户抽取次数：" value="{{formValue.drawTimes}}" type="number" bindinput="onInput" data-key="drawTimes" data-type="number"></input>
+      <input class="view-inline" placeholder="用户抽取次数：" value="{{formValue.drawTimes}}" type="number" bindinput="onInput" data-key="drawTimes" data-type="number"></input>
     </view>
-    <view>
+    <view class="item">
       活动码：
-      <input placeholder="活动码" value="{{formValue.activityCode}}" bindinput="onInput" data-key="activityCode"></input>
+      <input class="view-inline" placeholder="活动码" value="{{formValue.activityCode}}" bindinput="onInput" data-key="activityCode"></input>
     </view>
 
-    <view>礼物名称：
-      <view wx:for="{{prizeList}}" wx:key="index">
+    <view class="item">礼物名称：
+      <view class="view-inline" wx:for="{{prizeList}}" wx:key="index">
         <input bindinput="onInputPrize" data-index="{{index}}" value='{{item}}'></input>
       </view>
     </view>
-    <view>
+    <view class="item">
       设定概率个数：{{probability.length}}
     </view>
     <!-- <button type="default" bindtap="addPrize">添加礼物</button> -->
-    <view class="table">
+    <view class="table item">
       <view class="tr">
         <view class="td">索引</view>
         <view class="td td-2x">计算概率</view>
@@ -46,22 +54,22 @@
         <view class="td td-2x"><input bindinput="onInputShowProbability" data-index="{{index}}" value="{{showProbability[index]}}"></input>%</view>
       </view>
     </view>
-    <view class="btn-wrapper">
+    <view class="btn-wrapper item">
       <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectTemplate">
-        <button type="primary">选择计算概率模板</button>
+        <button type="primary">计算模板</button>
       </picker>  
       <picker mode="selector" range="{{templateList}}" range-key="name" bindchange="onSelectShowTemplate">
-        <button type="default">选择展示概率模板</button>
+        <button type="default">展示模板</button>
       </picker>
     </view>
-    <view class="btn-wrapper">
+    <view class="btn-wrapper item">
       <button type="default" bindtap="onAddProbability">增加一个概率</button>
     </view>
-    <view class="btn-wrapper">
+    <view class="btn-wrapper item">
       <button type="default" bindtap="onRemoveProbability">删除一个概率</button>
     </view>
 
-    <view class="btn-wrapper">
+    <view class="btn-wrapper item">
       <button type="default" bindtap="onSave" data-status="0">保存</button>
       <button type="primary" bindtap="onSave" data-status="1">发布</button>
     </view>  
