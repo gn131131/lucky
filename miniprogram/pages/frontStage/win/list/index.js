@@ -33,7 +33,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
+    this.data.page.pageNum = 1;
+    this.data.list = [];
     this.queryListByPage();
   },
 
@@ -54,15 +56,25 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh() {
+    this.data.page.pageNum = 1;
+    this.data.list = [];
+    this.queryListByPage();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
+  onReachBottom() {
+    if ((this.data.page.total - this.data.page.pageNum * this.data.page.pageSize) > 0) {
+      this.data.page.pageNum++;
+      this.queryListByPage();
+    } else {
+      wx.showToast({
+        title: '已加载完全部数据',
+        icon: 'error'
+      });
+    }
   },
 
   /**
@@ -75,11 +87,12 @@ Page({
   async queryListByPage() {
     const res = await fHttp.win.queryListByPage({page: this.data.page}, app.globalData.userInfo.id);
     this.setData({
-      list: res.records.map(item => {
+      list: this.data.list.concat(res.records).map(item => {
         item.winTime = transDate(item.winTime);
         return item;
       }),
       page: res.page
     });
+    wx.stopPullDownRefresh();
   },
 })

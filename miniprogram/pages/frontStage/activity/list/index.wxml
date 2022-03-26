@@ -6,12 +6,12 @@
   </view>
 
   <view class="content">
-    <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-item="{{item}}">
-      <view>{{item.name}}</view>
-      <view>已参与用户数：{{item.participateNum}}</view>
-      <view>奖品：<view wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
+    <view wx:if="{{list.length > 0}}" class="list-item published" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-item="{{item}}">
+      <view class="item-title">{{item.name}}</view>
+      <view class="item">已参与用户数：{{item.participateNum}}</view>
+      <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
       <view>中奖概率：{{item.showProbability[0]}}%</view>
     </view>
-    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
+    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view> 
   </view>
 </view>

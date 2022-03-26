@@ -1,1 +1,18 @@
 /* pages/frontStage/activity/view/index.wxss */
+.user-item {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 10rpx;
+  margin: 20rpx;
+  padding: 15rpx;
+}
+
+.user-avatar {
+  position: absolute;
+  right: 20rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}

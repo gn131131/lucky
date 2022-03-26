@@ -6,17 +6,25 @@
   </view>
   
   <view class="content">
-    <view wx:if="{{!isParticipate}}">
-      请输入活动码：
-      <input bindinput="onInput" value="abcd1234"></input>
-      <button type="primary" bindtap="verifyActivityCode">验证活动码</button>
+    <view class="item item-col" wx:if="{{!isParticipate}}">
+      <view class="item">
+        请输入活动码：
+      </view>
+      <view class="item">
+        <input bindinput="onInput" value=""></input>
+      </view>
+      <view class="item">
+        <button type="primary" bindtap="verifyActivityCode">验证活动码</button>
+      </view>
     </view>
 
     <view wx:if="{{isParticipate}}">
-      <view>当前展示中奖概率：{{showProbability}}%</view>
-      <view>当前计算中奖概率：{{probability}}%</view>
-      <view>剩余抽奖次数：{{surplusDrawTimes}}</view>
-      <button type="primary" bindtap="draw">抽奖</button>
+      <view class="item">当前中奖概率：{{showProbability}}%</view>
+      <!-- <view class="item">当前计算中奖概率：{{probability}}%</view> -->
+      <view class="item">剩余抽奖次数：{{surplusDrawTimes}}</view>
+      <view class="item">
+        <button type="primary" bindtap="draw">抽奖</button>
+      </view>
     </view>
   </view>
 </view>

@@ -61,6 +61,7 @@ exports.WinUser = (params) => {
     prizeName: params.prize_name,
     drawTimes: params.draw_times,
     surplusDrawTimes: params.surplus_draw_times,
+    userList: params.userList ? params.userList.map(item => this.User(item)) : [],
     winTime: params.win_time
   }
 };

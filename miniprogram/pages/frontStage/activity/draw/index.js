@@ -10,7 +10,7 @@ Page({
    */
   data: {
     isParticipate: false,
-    activityCode: 'abcd1234',
+    activityCode: '',
     activityId: '',
     showProbability: 0,
     probability: 0,
