@@ -1,6 +1,8 @@
 <view class="container">
   <view class="content">
-    <input bindinput="onInput" value="123456"></input>
-    <button type="primary" bindtap="verify">验证密码</button>
+    <view class="item">
+      <input bindinput="onInput" value="123456"></input>
+      <button type="primary" bindtap="verify">验证密码</button>
+    </view>
   </view>
 </view>

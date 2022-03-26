@@ -43,7 +43,7 @@ export const goto = (event, params) => {
 
 // 转换日期
 export const transDate = (timestamp) => {
-  if (timestamp) {
+  if (timestamp && typeof +timestamp === 'number') {
     const date = new Date(+timestamp);
     const year = date.getFullYear();
     const month = zeroFilling(date.getMonth() + 1);
