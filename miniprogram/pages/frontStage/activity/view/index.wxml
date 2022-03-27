@@ -1,12 +1,9 @@
 <view class="container">
-  <view class="header">
-    <view class="avatar">
-      <open-data type="userAvatarUrl"></open-data>
-    </view>
+  <view class="front-header">
+    {{activityData.name}}
   </view>
 
-  <view class="content">
-    <view class="item">活动名称：{{activityData.name}}</view>
+  <view class="front-content" style="flex-direction: column;">
     <view class="item">参与人数：{{activityData.participateNum}}</view>
     <view class="item">中奖人数：{{activityData.winNum}}</view>
     <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
@@ -18,8 +15,8 @@
       <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
         <image src="{{user.avatarUrl}}" class="user-avatar"></image>
         <view class="item">{{user.nickName}}</view>
+        <view class="item">中奖次数：{{user.winTimes}}</view>
         <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
-        <view class="item">剩余抽奖次数：{{user.surplusDrawTimes}}</view>
       </view>
     </view>
 

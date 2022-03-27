@@ -14,7 +14,8 @@ Page({
     activityId: '',
     showProbability: 0,
     probability: 0,
-    surplusDrawTimes: 0
+    surplusDrawTimes: 0,
+    prizeName: ''
   },
 
   /**
@@ -24,7 +25,8 @@ Page({
     console.log('是否已参与', options.isParticipate);
     this.setData({
       activityId: options.activityId,
-      isParticipate: options.isParticipate === 'true'
+      isParticipate: options.isParticipate === 'true',
+      prizeName: options.prizeName
     });
 
     if (this.data.isParticipate) {

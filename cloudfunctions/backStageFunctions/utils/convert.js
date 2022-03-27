@@ -51,6 +51,7 @@ exports.ParticipateUser = (params) => {
     activityId: params.activity_id,
     drawTimes: params.draw_times,
     surplusDrawTimes: params.surplus_draw_times,
+    winTimes: params.win_times,
     createTime: params.create_time,
     updateTime: params.update_time,
   }

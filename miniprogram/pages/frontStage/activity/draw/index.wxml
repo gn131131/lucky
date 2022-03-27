@@ -1,11 +1,9 @@
 <view class="container">
-  <view class="header">
-    <view class="avatar">
-      <open-data type="userAvatarUrl"></open-data>
-    </view>
+  <view class="front-header">
+    奖品：{{prizeName}}
   </view>
-  
-  <view class="content">
+
+  <view class="front-content" style="flex-direction: column;">
     <view class="item item-col" wx:if="{{!isParticipate}}">
       <view class="item">
         请输入活动码：

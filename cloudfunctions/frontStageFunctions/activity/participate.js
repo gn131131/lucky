@@ -50,6 +50,7 @@ exports.main = async (event, context) => {
           activity_id: data.id,
           draw_times: activity.data.draw_times,
           surplus_draw_times: activity.data.draw_times,
+          win_times: 0,
           create_time: new Date().getTime(),
           update_time: new Date().getTime()
         }

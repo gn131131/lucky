@@ -51,16 +51,17 @@ exports.main = async (event, context) => {
         const randomNum = Math.ceil(Math.random() * 100);
         console.log('当前抽奖', probabilityList, currentDrawIndex, currentProbability, randomNum);
         
-        // 先减掉抽奖次数
+        // 先减掉抽奖次数，并更新中奖次数
         await db.collection('participate_user').where({
           user_id: data.userId,
           activity_id: data.id
         }).update({
           data: {
-            surplus_draw_times: participateUserInfo.data[0].surplus_draw_times - 1
+            surplus_draw_times: participateUserInfo.data[0].surplus_draw_times - 1,
+            win_times: randomNum <= currentProbability ? (participateUserInfo.data[0].win_times + 1) : participateUserInfo.data[0].win_times
           }
         });
-        
+
         if (randomNum <= currentProbability) {
           console.log('中奖');
           // 查询奖品表

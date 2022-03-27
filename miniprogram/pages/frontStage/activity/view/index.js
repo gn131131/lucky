@@ -98,6 +98,6 @@ Page({
   },
 
   goto(event) {
-    goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId});
+    goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId, prizeName: this.data.activityData.prizeList[0].name});
   },
 })

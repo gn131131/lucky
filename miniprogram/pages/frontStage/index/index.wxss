@@ -20,10 +20,6 @@
   background: #000;
 }
 
-.content {
-  background: #000;
-}
-
 .double-star {
   margin: 0 auto;
   width: 400rpx;

@@ -12,6 +12,6 @@
       <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
       <view>中奖概率：{{item.showProbability[0]}}%</view>
     </view>
-    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view> 
+    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
   </view>
 </view>

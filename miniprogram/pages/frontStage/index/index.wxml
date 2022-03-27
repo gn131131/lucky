@@ -1,23 +1,82 @@
 <view class="container">
-  <view class="header">
-    <view class="avatar">
-      <open-data type="userAvatarUrl"></open-data>
+
+  <view class="front-header" bindlongpress="onlongpress" bindtouchend="ontouchend" data-url="backStage/password/index">
+    Hey<view class="nick-name" wx:if="{{nickName}}">, {{nickName}}</view>
+  </view>
+
+  <view class="front-content">
+    <view class="list-left {{currentNav === 1 ? 'show' : ''}}">
+      <view class="list-title {{currentNav === 1 ? 'show' : ''}}">参与活动</view>
+      <scroll-view class="list-wrapper"
+        scroll-y="{{true}}"
+        bindscrolltolower="onActivityReachBottom"
+        bindrefresherrefresh="onActivityPullDownRefresh"
+        enable-back-to-top="{{true}}"
+        enhanced="{{true}}"
+        scroll-anchoring="{{true}}"
+        refresher-enabled="{{true}}"
+        show-scrollbar="{{false}}"
+        refresher-triggered="{{activityPullDownRefresh}}">
+        <view wx:if="{{activity.list.length > 0}}" class="list-item front-item-1" wx:for="{{activity.list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-id="{{item.id}}">
+          <view class="item-title">{{item.name}}</view>
+          <view class="item">已参与用户数：{{item.participateNum}}</view>
+          <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
+          <view>中奖概率：{{item.showProbability[0]}}%</view>
+        </view>
+        <view class="no-data" wx:if="{{activity.list.length === 0}}">暂无数据</view>
+        <view class="hidden-block"></view>
+      </scroll-view>  
+    </view>
+
+    <view class="list-right {{currentNav === 2 ? 'show' : ''}}">
+      <view class="list-title {{currentNav === 2 ? 'show' : ''}}">中奖记录</view>
+      <scroll-view class="list-wrapper"
+        scroll-y="{{true}}"
+        bindscrolltolower="onWinReachBottom"
+        bindrefresherrefresh="onWinPullDownRefresh"
+        enable-back-to-top="{{true}}"
+        enhanced="{{true}}"
+        scroll-anchoring="{{true}}"
+        refresher-enabled="{{true}}"
+        show-scrollbar="{{false}}"
+        refresher-triggered="{{winPullDownRefresh}}">
+        <view wx:if="{{win.list.length > 0}}" class="list-item front-item-2" wx:for="{{win.list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-id="{{item.activityId}}">
+          <view class="item-title">{{item.userName}}</view>
+          <view class="item">奖品名称：{{item.prizeName}}</view>
+          <view class="item">中奖时间：{{item.winTime}}</view>
+        </view> 
+        <view class="no-data" wx:if="{{win.list.length === 0}}">暂无数据</view>
+        <view class="hidden-block"></view>
+      </scroll-view> 
     </view>
   </view>
 
-  <view class="content">
-    <view class="item-wrapper">
-      <view class="item-btn" bindtap="goto" data-url="frontStage/activity/list/index">活动列表</view>
-    </view>
-    <!-- <view class="item-wrapper">
-      <view class="item-btn" bindtap="goto" data-url="frontStage/history/list/index">参与活动记录</view>
-    </view> -->
-    <view class="item-wrapper">
-      <view class="item-btn" bindtap="goto" data-url="frontStage/win/list/index">中奖记录</view>
-    </view>
-
-    <view class="double-star {{longpress ? 'rotate-fast' : 'rotate-slow'}}" bindlongpress="onlongpress" bindtouchend="ontouchend" data-url="backStage/password/index">
-      <image src="{{doubleStar}}"></image>
+  <view class="nav-bar">
+    <view class="nav-bar-content">
+      <image class="icon-active {{currentNav === 1 ? 'left-active' : 'right-active'}}" src="{{iconactive}}" />
+      <view class="nav-icon" bindtap="switchNav" data-type="1">
+        <image class="icon {{currentNav === 1 && 'hidden'}}" src="{{icon1}}" />
+        <image class="icon {{currentNav !== 1 && 'hidden'}}" src="{{icon1active}}" />
+      </view>
+      <view class="nav-icon" bindtap="switchNav" data-type="2">
+        <image class="icon {{currentNav !== 1 && 'hidden'}}" src="{{icon2}}" />
+        <image class="icon {{currentNav === 1 && 'hidden'}}" src="{{icon2active}}" />
+      </view>
     </view>
   </view>
 </view>
+
+
+<!-- <view class="item-wrapper">
+      <view class="item-btn" bindtap="goto" data-url="frontStage/activity/list/index">活动列表</view>
+    </view>
+    <view class="item-wrapper">
+      <view class="item-btn" bindtap="goto" data-url="frontStage/win/list/index">中奖记录</view>
+    </view> -->
+
+<!-- <view class="item-wrapper">
+      <view class="item-btn" bindtap="goto" data-url="frontStage/history/list/index">参与活动记录</view>
+    </view> -->
+<!-- <view class="double-star {{longpress ? 'rotate-fast' : 'rotate-slow'}}" bindlongpress="onlongpress" bindtouchend="ontouchend" data-url="backStage/password/index">
+      <image src="{{doubleStar}}"></image>
+    </view> -->
