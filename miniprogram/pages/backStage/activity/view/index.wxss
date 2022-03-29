@@ -24,3 +24,7 @@ button {
 picker {
   flex: 1;
 }
+.short-input {
+  display: inline-block;
+  width: 100rpx;
+}

@@ -37,6 +37,14 @@ exports.main = async (event, context) => {
 
     const result = convert.Activity(res.data);
     delete result.probability;
+    
+    const timeRange = result.activeTimeRange.split('#');
+    const currentTime = new Date().getTime();
+    if (currentTime >= timeRange[0] && currentTime <= timeRange[1]) {
+      result.expire = false;
+    } else {
+      result.expire = true;
+    }
     return {
       success: true,
       data: result

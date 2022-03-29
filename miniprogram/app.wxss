@@ -70,17 +70,29 @@
 
 .list-title {
   position: absolute;
-  top: 28rpx;
+  display: flex;
+  top: 20rpx;
   left: 80rpx;
   font-size: 34rpx;
   color: #fff;
   opacity: 0;
   visibility: hidden;
   transition: .3s ease-in-out;
+  overflow: hidden;
+  background: #444;
+  border-radius: 26rpx;
 }
 .list-title.show {
   opacity: 1;
   visibility: visible;
+}
+.title-item {
+  padding: 10rpx 40rpx;
+  transition: .2s ease-in-out;
+}
+.title-item.active {
+  background: #202020;
+  color: bisque;
 }
 
 .list-wrapper {
@@ -147,7 +159,9 @@ image {
 }
 
 .no-data {
-  margin: 20rpx auto;
+  margin: 50rpx auto;
+  text-align: center;
+  font-size: 50rpx;
 }
 
 .list-item {

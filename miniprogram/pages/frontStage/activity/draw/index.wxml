@@ -11,18 +11,15 @@
       <view class="item">
         <input bindinput="onInput" value=""></input>
       </view>
-      <view class="item">
-        <button type="primary" bindtap="verifyActivityCode">验证活动码</button>
-      </view>
+      <view class="verify-btn" bindtap="verifyActivityCode">Verify</view>
     </view>
 
     <view wx:if="{{isParticipate}}">
       <view class="item">当前中奖概率：{{showProbability}}%</view>
-      <!-- <view class="item">当前计算中奖概率：{{probability}}%</view> -->
+      <view class="item" wx:if="{{certainTimes === 0}}">此次抽奖必中！</view>
       <view class="item">剩余抽奖次数：{{surplusDrawTimes}}</view>
-      <view class="item">
-        <button type="primary" bindtap="draw">抽奖</button>
-      </view>
+      <view class="item" wx:if="{{certainTimes !== -1 && certainTimes !== 0}}">再抽{{certainTimes}}次后下次必中！</view>
+      <view class="draw-btn" bindtap="draw">Draw!</view>
     </view>
   </view>
 </view>

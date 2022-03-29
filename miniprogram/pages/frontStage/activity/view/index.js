@@ -77,6 +77,8 @@ Page({
     try {
       const data = await fHttp.activity.queryById(this.data.activityId);
 
+      data.participateUserList = [...data.participateUserList, ...data.participateUserList, ...data.participateUserList, ...data.participateUserList, ...data.participateUserList, ...data.participateUserList]
+
       data.activeTimeRange = data.activeTimeRange.split('#').map(item => transDate(item)).join(' 到 ');
 
       // 如果没有参与，则调用围观接口

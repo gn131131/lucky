@@ -18,6 +18,8 @@ Page({
     iconactive: images.active,
     canEnter: false,
     currentNav: 1,
+    nav1Tab: 1,
+    nav2Tab: 1,
     nickName: '',
 
     activity: {
@@ -79,7 +81,11 @@ Page({
   },
 
   async queryActivityListByPage() {
-    const res = await fHttp.activity.queryListByPage({page: this.data.activity.page});
+    const params = {page: this.data.activity.page};
+    if (this.data.nav1Tab === 2) {
+      params.userId = app.globalData.userInfo.id;
+    }
+    const res = await fHttp.activity.queryListByPage(params);
     this.setData({
       activity: {
         list: this.data.activity.list.concat(res.records),
@@ -89,7 +95,11 @@ Page({
   },
 
   async queryWinListByPage() {
-    const res = await fHttp.win.queryListByPage({page: this.data.win.page}, app.globalData.userInfo.id);
+    const params = {page: this.data.win.page};
+    if (this.data.nav2Tab === 2) {
+      params.userId = app.globalData.userInfo.id;
+    }
+    const res = await fHttp.win.queryListByPage(params);
     this.setData({
       win: {
         list: this.data.win.list.concat(res.records).map(item => {
@@ -107,7 +117,7 @@ Page({
       this.queryActivityListByPage();
     } else {
       wx.showToast({
-        title: '已加载完全部数据',
+        title: '到底啦！',
         icon: 'error'
       });
     }
@@ -119,7 +129,7 @@ Page({
       this.queryWinListByPage();
     } else {
       wx.showToast({
-        title: '已加载完全部数据',
+        title: '到底啦！',
         icon: 'error'
       });
     }
@@ -196,4 +206,26 @@ Page({
     });
     this._freshing_w = false;
   },
+
+  async changeTab(e) {
+    const currentNav = +e.currentTarget.dataset.nav;
+    const type = +e.currentTarget.dataset.type;
+
+    if (currentNav === 1) {
+      this.setData({
+        nav1Tab: type
+      });
+      this.data.activity.list = [];
+      this.data.activity.page.pageNum = 1;
+      await this.queryActivityListByPage();
+    }
+    if (currentNav === 2) {
+      this.setData({
+        nav2Tab: type
+      });
+      this.data.win.list = [];
+      this.data.win.page.pageNum = 1;
+      await this.queryWinListByPage();
+    }
+  }
 });

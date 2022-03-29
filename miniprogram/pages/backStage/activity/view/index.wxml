@@ -55,11 +55,12 @@
       </view>
     </view>
     <view class="item item-col">参与用户列表：
-      <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
+      <view class="user-item" wx:for="{{participateUserList}}" wx:key="id" wx:for-item="user">
         <image src="{{user.avatarUrl}}" class="user-avatar"></image>
         <view class="item">{{user.nickName}}</view>
         <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
-        <view class="item">剩余抽奖次数：{{user.surplusDrawTimes}}</view>
+        <view class="item">剩余抽奖次数：<input class="short-input" type="number" value='{{user.surplusDrawTimes}}' bindinput="changeSurplusDrawTimes" data-index="{{index}}"></input></view>
+        <button type="primary" wx:if="{{user.canUpdate}}" bindtap="onSaveParticipateUser" data-index="{{index}}">保存</button>
       </view>
     </view>
 

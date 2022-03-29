@@ -59,8 +59,8 @@ export const fHttp = {
   },
   win: {
     // 获取当前用户中奖记录列表
-    queryListByPage: (data, userId) => {
-      return utilsService.http('/f/win/queryListByPage', Object.assign(data, {userId}));
+    queryListByPage: (data) => {
+      return utilsService.http('/f/win/queryListByPage', data);
     },
   },
 };
@@ -90,6 +90,10 @@ export const bHttp = {
     // 根据id删除活动
     deleteById: (id) => {
       return utilsService.http('/b/activity/deleteById', {id});
+    },
+    // 更新参与用户表
+    updateParticipateUser: (data) => {
+      return utilsService.http('/b/activity/updateParticipateUser', data);
     }
   },
   user: {

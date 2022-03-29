@@ -1,7 +1,13 @@
 {
   "pages": [
     
-    "pages/frontStage/index/index",
+    
+    "pages/frontStage/index/index",    
+    "pages/frontStage/activity/list/index",
+    "pages/frontStage/activity/view/index",
+    "pages/frontStage/history/list/index",
+    "pages/frontStage/win/list/index",
+    "pages/frontStage/activity/draw/index",
 
     "pages/backStage/index/index",
     "pages/backStage/password/index",
@@ -9,13 +15,7 @@
     "pages/backStage/user/list/index",
     "pages/backStage/activity/view/index",
     "pages/backStage/activity/add/index",
-    "pages/backStage/activity/list/index",
-    
-    "pages/frontStage/activity/list/index",
-    "pages/frontStage/activity/view/index",
-    "pages/frontStage/history/list/index",
-    "pages/frontStage/win/list/index",
-    "pages/frontStage/activity/draw/index"
+    "pages/backStage/activity/list/index"
   ],
   "window": {
     "backgroundColor": "#353535",

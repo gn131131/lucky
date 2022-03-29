@@ -12,7 +12,8 @@ Page({
     activityData: {},
     userCount: 1000000,
     timesArr: [],
-    proArr: []
+    proArr: [],
+    participateUserList: []
   },
 
   /**
@@ -79,8 +80,13 @@ Page({
 
       data.activeTimeRange = data.activeTimeRange.split('#').map(item => transDate(item)).join(' 到 ');
 
+      data.participateUserList.forEach(item => {
+        item.canUpdate = false;
+      });
+
       this.setData({
-        activityData: data
+        activityData: data,
+        participateUserList: data.participateUserList
       });
     } catch (e) {
       console.error(e);
@@ -133,6 +139,38 @@ Page({
     } catch (e) {
       console.error(e);
     }
+  },
+
+  changeSurplusDrawTimes(e) {
+    const surplusDrawTimes = +e.detail.value;
+    const index = e.currentTarget.dataset.index;
+    
+    const oldData = this.data.participateUserList[index].surplusDrawTimes;
+    const dValue = surplusDrawTimes - oldData;
+
+    const drawTimes = this.data.participateUserList[index].drawTimes + dValue;
+
+    this.data.participateUserList[index].surplusDrawTimes = surplusDrawTimes < 0 ? 0 : surplusDrawTimes;
+    this.data.participateUserList[index].drawTimes = drawTimes < 0 ? 0 : drawTimes;
+    this.data.participateUserList[index].canUpdate = true;
+
+    this.setData({
+      participateUserList: this.data.participateUserList
+    });
+  },
+
+  async onSaveParticipateUser(e) {
+    const index = e.currentTarget.dataset.index;
+    this.data.participateUserList[index].canUpdate = false;
+    const data = this.data.participateUserList[index];
+    console.log(data);
+    await bHttp.activity.updateParticipateUser(data);
+    await wx.showToast({
+      title: '更新成功'
+    });
+    this.setData({
+      participateUserList: this.data.participateUserList
+    });
   },
 
   async deleteItem() {

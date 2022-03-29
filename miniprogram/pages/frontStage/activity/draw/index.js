@@ -13,8 +13,8 @@ Page({
     activityCode: '',
     activityId: '',
     showProbability: 0,
-    probability: 0,
     surplusDrawTimes: 0,
+    certainTimes: 0,
     prizeName: ''
   },
 
@@ -98,7 +98,8 @@ Page({
         await this.participate();
       } else {
         wx.showToast({
-          title: '活动码输入错误'
+          title: '错误的活动码',
+          icon: 'error'
         });
       }
     } catch (e) {
@@ -122,9 +123,14 @@ Page({
 
   async draw() {
     try {
+      await wx.showLoading({
+        title: '正在抽奖！',
+        mask: true
+      });
       if (this.data.surplusDrawTimes === 0) {
         wx.showToast({
-          title: '您已无抽奖次数'
+          title: '您已无抽奖次数',
+          icon: 'error'
         });
         return;
       }
@@ -151,7 +157,7 @@ Page({
       this.setData({
         surplusDrawTimes: result.surplusDrawTimes,
         showProbability: result.showProbability,
-        probability: result.probability
+        certainTimes: result.certainTimes
       });
     } catch (e) {
       console.error(e);

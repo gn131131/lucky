@@ -6,7 +6,10 @@
 
   <view class="front-content">
     <view class="list-left {{currentNav === 1 ? 'show' : ''}}">
-      <view class="list-title {{currentNav === 1 ? 'show' : ''}}">参与活动</view>
+      <view class="list-title {{currentNav === 1 ? 'show' : ''}}">
+        <view class="title-item {{nav1Tab === 1 ? 'active' : ''}}" bindtap="changeTab" data-nav="1" data-type="1">所有活动</view>
+        <view class="title-item {{nav1Tab === 2 ? 'active' : ''}}" bindtap="changeTab" data-nav="1" data-type="2">我的参与</view>
+      </view>
       <scroll-view class="list-wrapper"
         scroll-y="{{true}}"
         bindscrolltolower="onActivityReachBottom"
@@ -23,13 +26,16 @@
           <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
           <view>中奖概率：{{item.showProbability[0]}}%</view>
         </view>
-        <view class="no-data" wx:if="{{activity.list.length === 0}}">暂无数据</view>
+        <view class="no-data" wx:if="{{activity.list.length === 0}}">暂无活动</view>
         <view class="hidden-block"></view>
       </scroll-view>  
     </view>
 
     <view class="list-right {{currentNav === 2 ? 'show' : ''}}">
-      <view class="list-title {{currentNav === 2 ? 'show' : ''}}">中奖记录</view>
+      <view class="list-title {{currentNav === 2 ? 'show' : ''}}">
+        <view class="title-item {{nav2Tab === 1 ? 'active' : ''}}" bindtap="changeTab" data-nav="2" data-type="1">中奖记录</view>
+        <view class="title-item {{nav2Tab === 2 ? 'active' : ''}}" bindtap="changeTab" data-nav="2" data-type="2">我的中奖</view>
+      </view>
       <scroll-view class="list-wrapper"
         scroll-y="{{true}}"
         bindscrolltolower="onWinReachBottom"

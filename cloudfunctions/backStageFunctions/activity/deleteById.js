@@ -12,6 +12,10 @@ exports.main = async (event, context) => {
     console.log('删除活动', data.id);
     const result = await db.collection('activity').doc(data.id).remove();
     console.log('删除结果', result);
+    // 删除奖品表
+    await db.collection('prize').where({
+      activity_id: data.id
+    }).remove();
     return {
       success: true,
       data: true

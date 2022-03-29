@@ -4,24 +4,27 @@
   </view>
 
   <view class="front-content" style="flex-direction: column;">
-    <view class="item">参与人数：{{activityData.participateNum}}</view>
-    <view class="item">中奖人数：{{activityData.winNum}}</view>
-    <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
-    <view class="item">中奖概率：{{activityData.showProbability[0]}}%</view>
-    <view class="item">奖品：
-      <view class="view-inline" wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
+    <view class="item top-item">
+      <view class="square">中奖概率：{{activityData.showProbability[0]}}%</view>
+      <view class="square">奖品：
+        <view class="view-inline" wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
+      </view> 
     </view>
-    <view class="item item-col" wx:if="{{activityData.participateUserList.length > 0}}">参与用户：
-      <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
-        <image src="{{user.avatarUrl}}" class="user-avatar"></image>
-        <view class="item">{{user.nickName}}</view>
-        <view class="item">中奖次数：{{user.winTimes}}</view>
-        <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
+    <view class="item-wrapper">
+      <view class="item">参与人数：{{activityData.participateNum}}</view>
+      <view class="item">中奖人数：{{activityData.winNum}}</view>
+      <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
+      <view class="item item-col" wx:if="{{activityData.participateUserList.length > 0}}">参与用户：
+        <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
+          <image src="{{user.avatarUrl}}" class="user-avatar"></image>
+          <view class="item">{{user.nickName}}</view>
+          <view class="item">中奖次数：{{user.winTimes}}</view>
+          <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
+        </view>
       </view>
     </view>
 
-    <view class="item">
-      <button type="primary" bindtap="goto" data-url="frontStage/activity/draw/index">参与抽奖</button>
-    </view>
+    <view wx:if="{{!activityData.expire}}" class="enter-btn" bindtap="goto" data-url="frontStage/activity/draw/index">Join!</view>
+    <view wx:if="{{activityData.expire}}" class="expire-btn">Expired</view>
   </view>
 </view>

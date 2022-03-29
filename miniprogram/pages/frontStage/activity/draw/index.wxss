@@ -1,1 +1,88 @@
 /* pages/frontStage/activity/draw/index.wxss */
+.verify-btn {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  bottom: 150rpx;
+  transform: translateX(-50%);
+  background: #805DFA;
+  border-radius: 50%;
+  width: 200rpx;
+  height: 200rpx;
+  color: #fff;
+  font-size: 60rpx;
+}
+
+.verify-btn:after {
+  content: '';
+  position: absolute;
+  width: 250rpx;
+  height: 250rpx;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 6rpx solid #805DFA;
+  border-radius: 50%;
+  animation: scale 1s ease-in-out alternate infinite;
+}
+
+@keyframes scale {
+  from {
+    width: 250rpx;
+    height: 250rpx;
+    border: 6rpx solid #805DFA;
+  }
+  to {
+    width: 200rpx;
+    height: 200rpx;
+    border: 6rpx solid goldenrod;
+  }
+}
+
+.draw-btn {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  bottom: 150rpx;
+  transform: translateX(-50%);
+  background: goldenrod;
+  border-radius: 50%;
+  width: 200rpx;
+  height: 200rpx;
+  color: #fff;
+  font-size: 60rpx;
+}
+
+.draw-btn:after {
+  content: '';
+  position: absolute;
+  width: 250rpx;
+  height: 250rpx;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 6rpx solid goldenrod;
+  border-radius: 50%;
+  animation: scale 1s ease-in-out alternate infinite;
+}
+
+@keyframes scale {
+  from {
+    width: 250rpx;
+    height: 250rpx;
+    border: 6rpx solid goldenrod;
+  }
+  to {
+    width: 200rpx;
+    height: 200rpx;
+    border: 6rpx solid orangered;
+  }
+}
+
+input {
+  color: #000;
+}
