@@ -20,7 +20,7 @@
   justify-content: center;
   align-items: center;
   left: 50%;
-  bottom: 150rpx;
+  bottom: 12vh;
   transform: translateX(-50%);
   background: #805DFA;
   border-radius: 50%;
@@ -49,7 +49,7 @@
   justify-content: center;
   align-items: center;
   left: 50%;
-  bottom: 150rpx;
+  bottom: 12vh;
   transform: translateX(-50%);
   background: crimson;
   border-radius: 50%;

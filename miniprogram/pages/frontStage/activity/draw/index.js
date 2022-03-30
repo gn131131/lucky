@@ -1,4 +1,5 @@
 import { fHttp } from "../../../../utils/http";
+import { images } from "../../../../utils/constance";
 
 const app = getApp();
 
@@ -15,7 +16,16 @@ Page({
     showProbability: 0,
     surplusDrawTimes: 0,
     certainTimes: 0,
-    prizeName: ''
+    prizeName: '',
+    doubleStar: images.doubleStar,
+    cardBack: images.cardBack,
+    cardEmpty: images.cardEmpty,
+    cardWinArr: [images.card1, images.card2, images.card3, images.card4, images.card5, images.card6, images.card7],
+    cardResultImg: images.cardEmpty,
+    flipping: false,
+    drawing: false,
+    drawResult: false,
+    flippingEnd: false
   },
 
   /**
@@ -123,25 +133,29 @@ Page({
 
   async draw() {
     try {
-      await wx.showLoading({
-        title: '正在抽奖！',
-        mask: true
+      this.setData({
+        flipping: false,
+        flippingEnd: false
       });
       if (this.data.surplusDrawTimes === 0) {
         wx.showToast({
           title: '您已无抽奖次数',
           icon: 'error'
         });
+        this.setData({
+          drawing: false
+        });
         return;
       }
       const result = await fHttp.activity.draw(this.data.activityId, app.globalData.userInfo.id);
-      console.log('抽奖结果', result ? '中奖' : '未中奖');
-      wx.showToast({
-        title: result ? '中奖' : '未中奖',
-        icon: result ? 'success' : 'error'
-      });
 
       await this.getSurplusDrawTimes();
+
+      this.setData({
+        drawing: true,
+        drawResult: result,
+        cardResultImg: result ? this.data.cardWinArr[Math.floor(Math.random() * this.data.cardWinArr.length)] : this.data.cardEmpty
+      });
     } catch (e) {
       console.error(e);
       wx.showToast({
@@ -165,5 +179,20 @@ Page({
         title: e
       });
     }
+  },
+
+  flip() {
+    this.setData({
+      flipping: true
+    });
+    setTimeout(() => {
+      wx.showToast({
+        title: this.data.drawResult ? '恭喜您！' : '很遗憾！',
+        icon: this.data.drawResult ? 'success' : 'error'
+      });
+      this.setData({
+        flippingEnd: true
+      });
+    }, 3000);
   }
 })
