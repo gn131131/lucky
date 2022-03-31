@@ -15,8 +15,13 @@ exports.main = async (event, context) => {
     console.log('分页获取中奖列表');
     const countResult = await db.collection('win_user').count();
     const total = countResult.total;
+    const matchParams = {};
+    if (data.userId) {
+      matchParams.user_id = data.userId;
+    }
     // 查询数据库信息
     const res = await db.collection('win_user').aggregate()
+    .match(matchParams)
     .sort({
       update_time: -1
     })
@@ -33,7 +38,11 @@ exports.main = async (event, context) => {
       success: true,
       data: {records: res.list.map(item => {
         const result = convert.WinUser(item);
-        result.userName = result.userList[0].nickName;
+        if (result.userList[0].nickName.length <= 5) {
+          result.userName = result.userList[0].nickName.substr(0, 1) + '***';
+        } else {
+          result.userName = result.userList[0].nickName.substr(0, 2) + '***' + result.userList[0].nickName.substr(-2);
+        }
         delete result.userList;
         return result;
       }), page: {pageSize: pageSize, pageNum: pageNum, total: total}}

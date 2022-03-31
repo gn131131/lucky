@@ -10,13 +10,13 @@ Page({
     isLogon: false,
     longpress: false,
     timeout: null,
+    canEnter: false,
     doubleStar: images.doubleStar,
     icon1: images.icon1,
     icon2: images.icon2,
     icon1active: images.icon1active,
     icon2active: images.icon2active,
     iconactive: images.active,
-    canEnter: false,
     currentNav: 1,
     nav1Tab: 1,
     nav2Tab: 1,
@@ -49,9 +49,7 @@ Page({
     this.data.win.list = [];
 
     this.setData({
-      longpress: false,
-      activityPullDownRefresh: true,
-      winPullDownRefresh: true
+      longpress: false
     });
 
     // 全局保存用户信息，无用户信息从数据库拉取
@@ -59,6 +57,7 @@ Page({
     if (app.globalData.userInfo.id) {
       this.setData({
         isLogon: true,
+        canEnter: true,
         nickName: app.globalData.userInfo.nickName
       });
     } else {
@@ -78,6 +77,9 @@ Page({
         });
       }
     }
+
+    await this.queryActivityListByPage();
+    await this.queryWinListByPage();
   },
 
   async queryActivityListByPage() {
@@ -227,5 +229,12 @@ Page({
       this.data.win.page.pageNum = 1;
       await this.queryWinListByPage();
     }
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+    
   }
 });

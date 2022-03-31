@@ -10,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLogon: false,
+    canEnter: false,
     activityId: '',
     activityData: {},
     isParticipate: false
@@ -36,6 +38,30 @@ Page({
    */
   async onShow () {
     await this.queryActivityById();
+
+    // 全局保存用户信息，无用户信息从数据库拉取
+    console.log('全局变量', app.globalData)
+    if (app.globalData.userInfo.id) {
+      this.setData({
+        isLogon: true,
+        canEnter: true
+      });
+    } else {
+      try {
+        const isLogon = await fHttp.user.checkLogon();
+        if (isLogon) {
+          app.globalData.userInfo = isLogon;
+        }
+        this.setData({
+          canEnter: true,
+          isLogon: !!isLogon
+        });
+      } catch (e) {
+        wx.showToast({
+          title: '请求失败'
+        });
+      }
+    }
   },
 
   /**
@@ -69,7 +95,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage() {
 
   },
 
@@ -88,16 +114,40 @@ Page({
         isParticipate: isParticipate
       });
 
-      if (isParticipate) {
-      } else {
-        await fHttp.activity.watch(this.data.activityId, app.globalData.userInfo.id);
-      }
+      await this.watch();
     } catch (e) {
       console.error(e);
     }
   },
 
-  goto(event) {
-    goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId, prizeName: this.data.activityData.prizeList[0].name});
+  async goto(event) {
+    if (this.data.canEnter) {
+      if (this.data.isLogon) {
+        goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId, prizeName: this.data.activityData.prizeList[0].name});
+      } else {
+        const profile = await wx.getUserProfile({desc: '用于完善会员资料'});
+        const userId = await fHttp.user.save({
+          nickName: profile.userInfo.nickName,
+          avatarUrl: profile.userInfo.avatarUrl
+        });
+        const userInfo = profile.userInfo;
+        userInfo.id = userId;
+        app.globalData.userInfo = userInfo;
+        this.setData({
+          isLogon: true
+        });
+        await this.watch();
+        goto(event, {isParticipate: this.data.isParticipate, activityId: this.data.activityId, prizeName: this.data.activityData.prizeList[0].name});
+      }
+    }
   },
+
+  async watch() {
+    if (this.data.isParticipate) {
+    } else {
+      if (this.data.isLogon) {
+        await fHttp.activity.watch(this.data.activityId, app.globalData.userInfo.id);
+      }
+    }
+  }
 })

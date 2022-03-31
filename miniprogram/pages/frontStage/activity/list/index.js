@@ -76,13 +76,6 @@ Page({
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   async queryListByPage() {
     const res = await fHttp.activity.queryListByPage({page: this.data.page});
     this.setData({

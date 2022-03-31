@@ -43,7 +43,7 @@ export const goto = (event, params) => {
 
 // 转换日期
 export const transDate = (timestamp) => {
-  if (timestamp && typeof +timestamp === 'number') {
+  if (timestamp && typeof +timestamp === 'number' && !isNaN(+timestamp)) {
     const date = new Date(+timestamp);
     const year = date.getFullYear();
     const month = zeroFilling(date.getMonth() + 1);
@@ -54,7 +54,7 @@ export const transDate = (timestamp) => {
   
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-  return '';
+  return timestamp;
 };
 
 // 补零

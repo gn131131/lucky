@@ -6,6 +6,7 @@
       <view class="item-title">{{item.name}}</view>
       <view class="item">已参与用户数：{{item.participateNum}}</view>
       <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
+      <view class="item">活动码：{{item.activityCode}}</view>
     </view>
     <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view> 
   </view>

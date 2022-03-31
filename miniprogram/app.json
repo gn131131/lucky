@@ -5,8 +5,6 @@
     "pages/frontStage/index/index",    
     "pages/frontStage/activity/list/index",
     "pages/frontStage/activity/view/index",
-    "pages/frontStage/history/list/index",
-    "pages/frontStage/win/list/index",
     "pages/frontStage/activity/draw/index",
 
     "pages/backStage/index/index",
@@ -21,7 +19,7 @@
     "backgroundColor": "#353535",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#353535",
-    "navigationBarTitleText": "Lucky Draw",
+    "navigationBarTitleText": "神秘宝藏屋",
     "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",

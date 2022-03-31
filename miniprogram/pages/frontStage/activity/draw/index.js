@@ -19,13 +19,17 @@ Page({
     prizeName: '',
     doubleStar: images.doubleStar,
     cardBack: images.cardBack,
-    cardEmpty: images.cardEmpty,
-    cardWinArr: [images.card1, images.card2, images.card3, images.card4, images.card5, images.card6, images.card7],
-    cardResultImg: images.cardEmpty,
+    // cardEmpty: images.cardEmpty,
+    // cardWinArr: [images.card1, images.card2, images.card3, images.card4, images.card5, images.card6, images.card7],
+    cardWin: images.cardWin,
+    cardLoseArr: [images.cardLose1, images.cardLose2, images.cardLose3, images.cardLose4, images.cardLose5, images.cardLose6, images.cardLose7, images.cardLose8, images.cardLose9],
+    cardResultImgIndex: 0,
+    shining: images.shining,
     flipping: false,
-    drawing: false,
+    drawStep: false,
     drawResult: false,
-    flippingEnd: false
+    flippingEnd: false,
+    drawing: false
   },
 
   /**
@@ -86,13 +90,6 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   onInput(evt) {
     const value = evt.detail.value;
     this.setData({
@@ -131,30 +128,34 @@ Page({
     }
   },
 
+  async startDraw() {
+    if (this.data.surplusDrawTimes === 0) {
+      wx.showToast({
+        title: '您已无抽奖次数',
+        icon: 'error'
+      });
+      this.setData({
+        drawStep: false
+      });
+      return;
+    }
+    this.setData({
+      drawStep: true,
+      flipping: false,
+      flippingEnd: false,
+      drawing: false,
+      drawResult: false
+    });
+    await this.getSurplusDrawTimes();
+  },
+
   async draw() {
     try {
-      this.setData({
-        flipping: false,
-        flippingEnd: false
-      });
-      if (this.data.surplusDrawTimes === 0) {
-        wx.showToast({
-          title: '您已无抽奖次数',
-          icon: 'error'
-        });
-        this.setData({
-          drawing: false
-        });
-        return;
-      }
       const result = await fHttp.activity.draw(this.data.activityId, app.globalData.userInfo.id);
-
-      await this.getSurplusDrawTimes();
-
       this.setData({
-        drawing: true,
+        flipping: true,
         drawResult: result,
-        cardResultImg: result ? this.data.cardWinArr[Math.floor(Math.random() * this.data.cardWinArr.length)] : this.data.cardEmpty
+        cardResultImgIndex: Math.floor(Math.random() * this.data.cardLoseArr.length)
       });
     } catch (e) {
       console.error(e);
@@ -181,18 +182,22 @@ Page({
     }
   },
 
-  flip() {
-    this.setData({
-      flipping: true
-    });
-    setTimeout(() => {
-      wx.showToast({
-        title: this.data.drawResult ? '恭喜您！' : '很遗憾！',
-        icon: this.data.drawResult ? 'success' : 'error'
-      });
+  async flip() {
+    if (!this.data.flippingEnd && !this.data.flipping && !this.data.drawing) { // 防重复点击
       this.setData({
-        flippingEnd: true
-      });
-    }, 3000);
+        drawing: true
+      })
+      await this.draw();
+      setTimeout(() => {
+        wx.showToast({
+          title: this.data.drawResult ? '怪盗基德今天休息，你如愿地领到了奖品' : '糟糕，你的奖品被怪盗基德偷走了',
+          icon: 'none',
+          duration: 3000
+        });
+        this.setData({
+          flippingEnd: true
+        });
+      }, 1500);
+    }
   }
 })

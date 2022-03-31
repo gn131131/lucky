@@ -4,7 +4,7 @@
   </view>
 
   <view class="front-content" style="flex-direction: column;">
-    <view class="item item-col" wx:if="{{!isParticipate}}">
+    <view class="item item-col" hidden="{{isParticipate}}">
       <view class="item">
         请输入活动码：
       </view>
@@ -14,7 +14,7 @@
       <view class="verify-btn" bindtap="verifyActivityCode">Verify</view>
     </view>
 
-    <view wx:if="{{isParticipate && !drawing}}">
+    <view hidden="{{!(isParticipate && !drawStep)}}">
       <view class="item">当前中奖概率：{{showProbability}}%</view>
       <view class="item" wx:if="{{certainTimes === 0}}">此次抽奖必中！</view>
       <view class="item">剩余抽奖次数：{{surplusDrawTimes}}</view>
@@ -23,22 +23,31 @@
       <view class="double-star" >
         <image class="rotate-slow" src="{{doubleStar}}"></image>
       </view>
-      <view class="draw-btn" bindtap="draw">Draw!</view>
+      <view class="draw-btn" bindtap="startDraw">Draw!</view>
     </view>
 
-    <view wx:if="{{drawing}}">
+    <view hidden="{{!drawStep}}">
       <view class="backdrop"></view>
+      <view class="draw-info">
+        <view class="draw-info-item">{{showProbability}}%</view>
+        <view class="draw-info-item">剩余{{surplusDrawTimes}}次</view>
+      </view>
+      <view class="shining" hidden="{{!drawResult}}">
+        <image src="{{shining}}" />
+      </view>
       <view class="flip-container {{flipping ? 'flip' : ''}}" bindtap="flip">
         <view class="flipper">
           <view class="front">
             <image src="{{cardBack}}" />
           </view>
           <view class="back">
-            <image src="{{cardResultImg}}" />
+            <image class="back-card {{(!drawResult && index === cardResultImgIndex) ? 'show' : ''}}" wx:for="{{cardLoseArr}}" wx:key="index" src="{{item}}" />
+            <image class="back-card {{drawResult ? 'show' : ''}}" src="{{cardWin}}" />
           </view>
         </view>
+        <view wx:if="{{!flipping}}" class="tap-hint"></view>
       </view>
-      <view class="draw-btn" wx:if="{{flippingEnd}}" bindtap="draw">Draw!</view>
+      <view class="draw-btn" wx:if="{{flippingEnd}}" bindtap="startDraw">Draw!</view>
     </view>
   </view>
 </view>

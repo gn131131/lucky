@@ -124,9 +124,51 @@ input {
   bottom: 35vh;
   transform: translateX(-50%);
 }
+.shining {
+  position: fixed;
+  left: 50%;
+  bottom: 22.5vh;
+  width: 1000rpx;
+  height: 1000rpx;
+  animation: shining 10s linear infinite;
+}
+@keyframes shining {
+  from {
+    transform: translateX(-50%) rotate(0);
+  }
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+.flip-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #fff;
+  z-index: -1;
+  filter: blur(40px);
+}
+.flip-container::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #fff;
+  z-index: -2;
+  filter: blur(40px);
+}
+.flip-container::before,
+.flip-container::after {
+  background: linear-gradient(235deg, #ff005e, #010615, #fbff00);
+}
 /* flip the pane when hovered */
 .flip-container.flip .flipper {
-  animation: flip 3s ease-out forwards;
+  animation: flip 1.5s ease-out forwards;
 }
 
 @keyframes flip {
@@ -172,6 +214,8 @@ input {
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
+  border-radius: 40rpx;
+  overflow: hidden;
 }
 
 .backdrop {
@@ -180,5 +224,91 @@ input {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: #000;
+  background: #010615;
+}
+
+.draw-info {
+  display: flex;
+  position: fixed;
+  left: 0;
+  bottom: 90vh;
+  width: 100%;
+  font-size: 40rpx;
+}
+.draw-info-item {
+  flex: 1;
+  text-align: center;
+}
+
+.tap-hint {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: tap 1.5s ease-in-out infinite alternate;
+}
+
+.tap-hint::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: tapInner 1s ease-in-out infinite alternate;
+}
+
+.tap-hint::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: tapOuter 1s ease-in-out infinite alternate;
+}
+
+@keyframes tap {
+  from {
+    width: 125rpx;
+    height: 125rpx;
+  }
+  to {
+    width: 0;
+    height: 0;
+  }
+}
+
+@keyframes tapInner {
+  from {
+    width: 0;
+    height: 0;
+  }
+  to {
+    width: 150rpx;
+    height: 150rpx;
+  }
+}
+
+@keyframes tapOuter {
+  from {
+    width: 150rpx;
+    height: 150rpx;
+  }
+  to {
+    width: 0;
+    height: 0;
+  }
+}
+
+.back-card {
+  display: none;
+}
+
+.back-card.show {
+  display: flex;
 }

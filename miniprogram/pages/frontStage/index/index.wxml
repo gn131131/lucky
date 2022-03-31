@@ -15,10 +15,8 @@
         bindscrolltolower="onActivityReachBottom"
         bindrefresherrefresh="onActivityPullDownRefresh"
         enable-back-to-top="{{true}}"
-        enhanced="{{true}}"
         scroll-anchoring="{{true}}"
         refresher-enabled="{{true}}"
-        show-scrollbar="{{false}}"
         refresher-triggered="{{activityPullDownRefresh}}">
         <view wx:if="{{activity.list.length > 0}}" class="list-item front-item-1" wx:for="{{activity.list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-id="{{item.id}}">
           <view class="item-title">{{item.name}}</view>
@@ -41,13 +39,11 @@
         bindscrolltolower="onWinReachBottom"
         bindrefresherrefresh="onWinPullDownRefresh"
         enable-back-to-top="{{true}}"
-        enhanced="{{true}}"
         scroll-anchoring="{{true}}"
         refresher-enabled="{{true}}"
-        show-scrollbar="{{false}}"
         refresher-triggered="{{winPullDownRefresh}}">
         <view wx:if="{{win.list.length > 0}}" class="list-item front-item-2" wx:for="{{win.list}}" wx:key="id" bindtap="goto" data-url="frontStage/activity/view/index" data-id="{{item.activityId}}">
-          <view class="item-title">{{item.userName}}</view>
+          <view class="item-title" wx:if="{{nav2Tab === 1}}">{{item.userName}}</view>
           <view class="item">奖品名称：{{item.prizeName}}</view>
           <view class="item">中奖时间：{{item.winTime}}</view>
         </view> 
