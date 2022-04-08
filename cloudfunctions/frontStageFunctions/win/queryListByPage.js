@@ -32,7 +32,7 @@ exports.main = async (event, context) => {
       as: 'userList'
     })
     .skip(pageSize * (pageNum - 1)).limit(pageSize).end();
-    console.log('查询结果', res.data);
+    console.log('查询结果', res.list);
 
     return {
       success: true,

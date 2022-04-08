@@ -2,7 +2,10 @@
   <view class="content">
     <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id">
       <view>活动名称：{{item.activityName}}</view>
+      <view>中奖用户：{{item.userName}}</view>
       <view>奖品名称：{{item.prizeName}}</view>
+      <view>总抽奖次数：{{item.drawTimes}}</view>
+      <view>第{{item.drawTimes - item.surplusDrawTimes}}抽中奖</view>
       <view>中奖时间：{{item.winTime}}</view>
     </view> 
     <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>

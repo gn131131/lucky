@@ -16,12 +16,26 @@ exports.main = async (event, context) => {
     const countResult = await db.collection('win_user').count();
     const total = countResult.total;
     // 查询数据库信息
-    const res = await db.collection('win_user').orderBy('update_time', 'desc').skip(pageSize * (pageNum - 1)).limit(pageSize).get();
-    console.log('查询结果', res.data);
+    const res = await db.collection('win_user').aggregate()
+    .sort({
+      update_time: -1
+    })
+    .lookup({
+      from: 'user',
+      localField: 'user_id',
+      foreignField: '_id',
+      as: 'userList'
+    }).skip(pageSize * (pageNum - 1)).limit(pageSize).end();
+    console.log('查询结果', res.list);
 
     return {
       success: true,
-      data: {records: res.data.map(item => convert.WinUser(item)), page: {pageSize: pageSize, pageNum: pageNum, total: total}}
+      data: {records: res.list.map(item => {
+        const result = convert.WinUser(item);
+        result.userName = result.userList[0].nickName;
+        delete result.userList;
+        return result;
+      }), page: {pageSize: pageSize, pageNum: pageNum, total: total}}
     };
   } catch (e) {
     return {

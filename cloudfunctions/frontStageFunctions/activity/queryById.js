@@ -29,7 +29,11 @@ exports.main = async (event, context) => {
       as: 'infoList'
     }).end();
     res.data.participateUserList = participateUserList.list.map(item => {
-      item.nick_name = item.infoList[0].nick_name;
+      if (item.infoList[0].nick_name.length <= 5) {
+        item.nick_name = item.infoList[0].nick_name.substr(0, 1) + '***';
+      } else {
+        item.nick_name = item.infoList[0].nick_name.substr(0, 2) + '***' + item.infoList[0].nick_name.substr(-2);
+      }
       item.avatar_url = item.infoList[0].avatar_url;
       delete item.infoList;
       return item;

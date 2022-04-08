@@ -129,7 +129,7 @@ Page({
   },
 
   async startDraw() {
-    if (this.data.surplusDrawTimes === 0) {
+    if (this.data.surplusDrawTimes <= 0) {
       wx.showToast({
         title: '您已无抽奖次数',
         icon: 'error'
@@ -138,6 +138,8 @@ Page({
         drawStep: false
       });
       return;
+    } else {
+      await this.getSurplusDrawTimes();
     }
     this.setData({
       drawStep: true,
@@ -146,7 +148,6 @@ Page({
       drawing: false,
       drawResult: false
     });
-    await this.getSurplusDrawTimes();
   },
 
   async draw() {
@@ -188,6 +189,7 @@ Page({
         drawing: true
       })
       await this.draw();
+      this.data.surplusDrawTimes--;
       setTimeout(() => {
         wx.showToast({
           title: this.data.drawResult ? '怪盗基德今天休息，你如愿地领到了奖品' : '糟糕，你的奖品被怪盗基德偷走了',
@@ -195,7 +197,8 @@ Page({
           duration: 3000
         });
         this.setData({
-          flippingEnd: true
+          flippingEnd: true,
+          surplusDrawTimes: this.data.surplusDrawTimes
         });
       }, 1500);
     }
