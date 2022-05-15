@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
       });
       return {
         success: true,
-        data: true
+        data: res.data[0]._id
       };
     } else {
       console.log('保存用户');

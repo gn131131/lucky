@@ -16,11 +16,22 @@ exports.main = async (event, context) => {
         name: data.name,
         draw_times: data.drawTimes,
         activity_code: data.activityCode,
+        probability: data.probability,
+        show_probability: data.showProbability,
         publish_status: data.publishStatus,
         status: data.status,
         update_time: new Date().getTime()
       }
     });
+    // 更新礼品表，暂时只更新一个
+    if (data.prizeList.length < 0) {
+      await db.collection('prize').doc(data.prizeList[0].id).update({
+        data: {
+          name: data.prizeList[0].name,
+          update_time: new Date().getTime()
+        }
+      });
+    }
     return {
       success: true,
       data: true

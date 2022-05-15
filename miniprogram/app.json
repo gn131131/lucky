@@ -1,6 +1,6 @@
 {
   "pages": [
-   
+    
     
     "pages/frontStage/index/index",    
     "pages/frontStage/activity/list/index",
@@ -14,6 +14,7 @@
     "pages/backStage/activity/view/index",
     "pages/backStage/activity/add/index",
     "pages/backStage/activity/list/index"
+    
   ],
   "window": {
     "backgroundColor": "#353535",

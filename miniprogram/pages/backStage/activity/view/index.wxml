@@ -1,7 +1,8 @@
 <view class="container">
   <view class="content">
-    <view wx:if="{{activityData.publishStatus === 1}}">
+    <view wx:if="{{activityData.publishStatus === 1 && activityData.status === 1}}">
       <view class="item">活动名称：{{activityData.name}}</view>
+      <view class="item">活动码：{{activityData.activityCode}}</view>
       <view class="item">参与人数：{{activityData.participateNum}}</view>
       <view class="item">中奖次数：{{activityData.winNum}}</view>
       <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
@@ -25,18 +26,20 @@
         </view>
       </view>
     </view>
-    <view wx:if="{{activityData.publishStatus === 0}}">
+    <view wx:if="{{activityData.publishStatus === 0 || activityData.status === 0}}">
       <view class="item">活动名称：<input bindinput="onInputFormValue" data-key="name" value="{{activityData.name}}"></input></view>
+      <view class="item">活动码：<input bindinput="onInputFormValue" data-key="activityCode" value="{{activityData.activityCode}}"></input></view>
       <view class="item">参与人数：{{activityData.participateNum}}</view>
       <view class="item">中奖次数：{{activityData.winNum}}</view>
       <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
       <view class="item">奖品：
-        <view class="view-inline" wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view>
+        <view class="view-inline" wx:for="{{activityData.prizeList}}" wx:key="id" wx:for-item="prize">
+          <input bindinput="onInputPrizeName" data-index="{{index}}" value="{{prize.name}}"></input>
+        </view>
       </view>
       <view class="item">活动抽取次数：<input bindinput="onInputFormValue" data-key="drawTimes" data-type="number" value="{{activityData.drawTimes}}"></input></view>
       <view class="item">
-        <button type="default" bindtap="onUpdate" data-status="0">保存</button>
-        <button type="primary" bindtap="onUpdate" data-status="1">发布</button>
+        <button type="{{activityData.status === 1 ? 'warn' : 'primary'}}" bindtap="onDisabled" data-status="{{activityData.status === 1 ? 0 : 1}}">{{activityData.status === 1 ? '禁用' : '启用'}}</button>
       </view>
       <view class="item">
         <button type="warn" bindtap="deleteItem">删除</button>
@@ -49,9 +52,13 @@
         </view>
         <view class="tr" wx:for="{{activityData.probability}}" wx:key="index">
           <view class="td">{{index + 1}}</view>
-          <view class="td td-2x">{{item}}%</view>
-          <view class="td td-2x">{{activityData.showProbability[index]}}%</view>
+          <view class="td td-2x"><input bindinput="onInputProbability" data-index="{{index}}" value="{{item}}"></input>%</view>
+          <view class="td td-2x"><input bindinput="onInputShowProbability" data-index="{{index}}" value="{{activityData.showProbability[index]}}"></input>%</view>
         </view>
+      </view>
+      <view class="item">
+        <button type="default" bindtap="onUpdate" data-status="0">暂存</button>
+        <button type="primary" bindtap="onUpdate" data-status="1">发布</button>
       </view>
     </view>
     <view class="item item-col">参与用户列表：
@@ -59,7 +66,10 @@
         <image src="{{user.avatarUrl}}" class="user-avatar"></image>
         <view class="item">{{user.nickName}}</view>
         <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>
-        <view class="item">剩余抽奖次数：<input class="short-input" type="number" value='{{user.surplusDrawTimes}}' bindinput="changeSurplusDrawTimes" data-index="{{index}}"></input></view>
+        <view class="item">剩余抽奖次数：
+          <input wx:if="{{activityData.publishStatus === 1 && activityData.status === 1}}" class="short-input" type="number" value='{{user.surplusDrawTimes}}' bindinput="changeSurplusDrawTimes" data-index="{{index}}"></input>
+          <view wx:if="{{activityData.publishStatus === 0 || activityData.status === 0}}">{{user.surplusDrawTimes}}</view>
+        </view>
         <button type="primary" wx:if="{{user.canUpdate}}" bindtap="onSaveParticipateUser" data-index="{{index}}">保存</button>
       </view>
     </view>

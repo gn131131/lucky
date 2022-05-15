@@ -109,6 +109,15 @@ Page({
     });
   },
 
+  onInputPrizeName(e) {
+    const value = e.detail.value;
+    const index = e.currentTarget.dataset.index;
+    this.data.activityData.prizeList[index].name = value;
+    this.setData({
+      activityData: this.data.activityData
+    });
+  },
+
   async onDisabled(e) {
     const status = e.currentTarget.dataset.status;
     this.data.activityData.status = +status;
@@ -341,5 +350,25 @@ Page({
       }
       this.doDraw(result, arr, arr2, winArr, false);
     }
-  }
+  },
+
+  onInputProbability(e) {
+    console.log(e);
+    const index = e.currentTarget.dataset.index;
+    const value = e.detail.value;
+    this.data.activityData.probability[index] = +value;
+    this.setData({
+      activityData: this.data.activityData
+    });
+  },
+
+  onInputShowProbability(e) {
+    console.log(e);
+    const index = e.currentTarget.dataset.index;
+    const value = e.detail.value;
+    this.data.activityData.showProbability[index] = +value;
+    this.setData({
+      activityData: this.data.activityData
+    });
+  },
 })

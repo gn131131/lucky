@@ -19,7 +19,8 @@ Page({
     startTime: '00:00:00',
     endDate: '2099-12-31',
     endTime: '00:00:00',
-    templateList: []
+    templateList: [],
+    saving: false
   },
 
   /**
@@ -142,22 +143,30 @@ Page({
   },
 
   async onSave(e) {
-    const status = e.currentTarget.dataset.status;
+    if (!this.data.saving) {
+      this.setData({
+        saving: true
+      });
+      const status = e.currentTarget.dataset.status;
 
-    const params = this.data.formValue;
-    params.probability = this.data.probability;
-    params.showProbability = this.data.showProbability;
-    params.prizeList = this.data.prizeList;
-    params.publishStatus = +status;
-    params.status = 1;
-    params.activeTimeRange = `${new Date(`${this.data.startDate} ${this.data.startTime}`).getTime()}#${new Date(`${this.data.endDate} ${this.data.endTime}`).getTime()}`;
-
-    try {
-      await bHttp.activity.save(params);
-
-      wx.navigateBack();
-    } catch (e) {
-      console.error(e);
+      const params = this.data.formValue;
+      params.probability = this.data.probability;
+      params.showProbability = this.data.showProbability;
+      params.prizeList = this.data.prizeList;
+      params.publishStatus = +status;
+      params.status = 1;
+      params.activeTimeRange = `${new Date(`${this.data.startDate} ${this.data.startTime}`).getTime()}#${new Date(`${this.data.endDate} ${this.data.endTime}`).getTime()}`;
+  
+      try {
+        await bHttp.activity.save(params);
+  
+        wx.navigateBack();
+      } catch (e) {
+        console.error(e);
+        this.setData({
+          saving: false
+        });
+      }
     }
   },
 

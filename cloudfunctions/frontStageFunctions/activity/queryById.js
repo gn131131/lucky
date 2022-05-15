@@ -28,6 +28,7 @@ exports.main = async (event, context) => {
       foreignField: '_id',
       as: 'infoList'
     }).end();
+    console.log(participateUserList.list.map(item => console.log(item)));
     res.data.participateUserList = participateUserList.list.map(item => {
       if (item.infoList[0].nick_name.length <= 5) {
         item.nick_name = item.infoList[0].nick_name.substr(0, 1) + '***';
@@ -38,7 +39,6 @@ exports.main = async (event, context) => {
       delete item.infoList;
       return item;
     });
-
     const result = convert.Activity(res.data);
     delete result.probability;
     

@@ -1,4 +1,5 @@
 exports.Activity = (params) => {
+  console.log(params)
   return {
     id: params._id,
     name: params.name,
