@@ -23,8 +23,10 @@ exports.main = async (event, context) => {
         update_time: new Date().getTime()
       }
     });
-    // 更新礼品表，暂时只更新一个
-    if (data.prizeList.length < 0) {
+    // 更新奖品表，暂时只更新一个
+    console.log('奖品', data.prizeList);
+    if (data.prizeList.length > 0) {
+      console.log('奖品id', data.prizeList[0].id)
       await db.collection('prize').doc(data.prizeList[0].id).update({
         data: {
           name: data.prizeList[0].name,
