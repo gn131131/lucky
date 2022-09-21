@@ -22,6 +22,7 @@ exports.User = (params) => {
     nickName: params.nick_name,
     avatarUrl: params.avatar_url,
     probabilityIncrease: params.probability_increase,
+    hideAvatar: params.hide_avatar,
     createTime: params.create_time,
     updateTime: params.update_time,
   }
@@ -48,6 +49,7 @@ exports.ParticipateUser = (params) => {
     drawTimes: params.draw_times,
     surplusDrawTimes: params.surplus_draw_times,
     winTimes: params.win_times,
+    hideAvatar: params.hide_avatar,
     createTime: params.create_time,
     updateTime: params.update_time,
   }

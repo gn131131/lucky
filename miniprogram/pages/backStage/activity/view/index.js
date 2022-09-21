@@ -182,7 +182,20 @@ Page({
     });
   },
 
-  async deleteItem() {
+  deleteItem() {
+    wx.showModal({
+      title: '警告',
+      content: '确认删除此活动！',
+      confirmColor: '#FF0000',
+      success: (res) => {
+        if (res.confirm) {
+          this.doDeleteItem();
+        }
+      }
+    });
+  },
+
+  async doDeleteItem() {
     try {
       await bHttp.activity.deleteById(this.data.activityData.id);
       await wx.showToast({
@@ -371,4 +384,19 @@ Page({
       activityData: this.data.activityData
     });
   },
+
+  onAddProbability() {
+    this.data.activityData.probability.push(100);
+    this.data.activityData.showProbability.push(100);
+    this.setData({
+      activityData: this.data.activityData
+    });
+  },
+  onRemoveProbability() {
+    this.data.activityData.probability.pop();
+    this.data.activityData.showProbability.pop();
+    this.setData({
+      activityData: this.data.activityData
+    });
+  }
 })

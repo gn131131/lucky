@@ -4,7 +4,7 @@
       <button type="primary" bindtap="goto" data-url="backStage/activity/list/index">活动列表</button>
     </view>
     <view class="item">
-      <button type="primary" bindtap="goto" data-url="backStage/win/list/index">中奖记录</button>
+      <button type="primary" bindtap="goto" data-url="backStage/win/userList/index">中奖记录</button>
     </view>
     <view class="item">
       <button type="primary" bindtap="goto" data-url="backStage/user/list/index">用户列表</button>

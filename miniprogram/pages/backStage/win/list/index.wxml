@@ -1,5 +1,12 @@
 <view class="container">
-  <view class="content">
+  <scroll-view class="list-wrapper"
+    scroll-y="{{true}}"
+    bindscrolltolower="onReachBottom"
+    bindrefresherrefresh="onPullDownRefresh"
+    enable-back-to-top="{{true}}"
+    scroll-anchoring="{{true}}"
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{pullDownRefresh}}">
     <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id">
       <view>活动名称：{{item.activityName}}</view>
       <view>中奖用户：{{item.userName}}</view>
@@ -9,5 +16,5 @@
       <view>中奖时间：{{item.winTime}}</view>
     </view> 
     <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
-  </view>
+  </scroll-view>
 </view>

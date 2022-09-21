@@ -7,12 +7,8 @@
     scroll-anchoring="{{true}}"
     refresher-enabled="{{true}}"
     refresher-triggered="{{pullDownRefresh}}">
-    <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id">
+    <view wx:if="{{list.length > 0}}" class="list-item" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="backStage/win/list/index" data-item="{{item}}">
       <view>用户昵称：{{item.nickName}}</view>
-      <view>用户头像：<image class="avatar" src="{{item.avatarUrl}}"></image>
-        <switch checked="{{!item.hideAvatar}}" data-item="{{item}}" bindchange="handleHideAvatar"/>
-      </view>
-      <view>创建时间：{{item.updateTime}}</view>
     </view> 
     <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
   </scroll-view>

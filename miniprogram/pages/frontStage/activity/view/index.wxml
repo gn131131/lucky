@@ -16,7 +16,7 @@
       <view class="item">活动时间：{{activityData.activeTimeRange}}</view>
       <view class="item item-col" wx:if="{{activityData.participateUserList.length > 0}}">参与用户：
         <view class="user-item" wx:for="{{activityData.participateUserList}}" wx:key="id" wx:for-item="user">
-          <image src="{{user.avatarUrl}}" class="user-avatar"></image>
+          <image src="{{user.hideAvatar ? defaultAvatar : user.avatarUrl}}" class="user-avatar"></image>
           <view class="item">{{user.nickName}}</view>
           <view class="item">中奖次数：{{user.winTimes}}</view>
           <view class="item">抽取次数：{{user.drawTimes - user.surplusDrawTimes}}</view>

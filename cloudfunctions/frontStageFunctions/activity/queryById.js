@@ -36,6 +36,7 @@ exports.main = async (event, context) => {
         item.nick_name = item.infoList[0].nick_name.substr(0, 2) + '***' + item.infoList[0].nick_name.substr(-2);
       }
       item.avatar_url = item.infoList[0].avatar_url;
+      item.hide_avatar = item.infoList[0].hide_avatar;
       delete item.infoList;
       return item;
     });

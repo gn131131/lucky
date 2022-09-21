@@ -70,7 +70,7 @@
     </view>
 
     <view class="btn-wrapper item">
-      <button type="default" bindtap="onSave" data-status="0">保存</button>
+      <!-- <button type="default" bindtap="onSave" data-status="0">暂存</button> -->
       <button type="primary" bindtap="onSave" data-status="1">发布</button>
     </view>  
   </view>

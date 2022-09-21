@@ -12,7 +12,8 @@ Page({
     page: {
       pageNum: 1,
       pageSize: 10
-    }
+    },
+    pullDownRefresh: false
   },
 
   /**
@@ -55,10 +56,16 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
+  async onPullDownRefresh(e) {
+    if (this._freshing) return;
+    this._freshing = true;
     this.data.page.pageNum = 1;
     this.data.list = [];
-    this.queryListByPage();
+    await this.queryListByPage();
+    this.setData({
+      pullDownRefresh: false
+    });
+    this._freshing = false;
   },
 
   /**
@@ -94,4 +101,20 @@ Page({
     });
     wx.stopPullDownRefresh();
   },
+
+  async handleHideAvatar(e) {
+    const item = e.currentTarget.dataset.item;
+    const id = item.id;
+    const hideAvatar = !e.detail.value;
+    
+    const res = await bHttp.user.changeAvatarStatus({
+      id: id,
+      hideAvatar: hideAvatar
+    });
+
+    wx.showToast({
+      title: res ? '修改成功' : '修改失败',
+      icon: 'none'
+    });
+  }
 })

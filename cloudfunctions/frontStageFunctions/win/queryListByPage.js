@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
     const res = await db.collection('win_user').aggregate()
     .match(matchParams)
     .sort({
-      update_time: -1
+      win_time: -1
     })
     .lookup({
       from: 'user',

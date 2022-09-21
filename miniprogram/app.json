@@ -10,6 +10,7 @@
     "pages/backStage/index/index",
     "pages/backStage/password/index",
     "pages/backStage/win/list/index",
+    "pages/backStage/win/userList/index",
     "pages/backStage/user/list/index",
     "pages/backStage/activity/view/index",
     "pages/backStage/activity/add/index",

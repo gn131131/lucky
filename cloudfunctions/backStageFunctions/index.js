@@ -9,6 +9,7 @@ const updateParticipateUser = require('./activity/updateParticipateUser');
 const queryWinListByPage = require('./win/queryListByPage');
 
 const queryUserListByPage = require('./user/queryListByPage');
+const changeAvatarStatus = require('./user/changeAvatarStatus');
 
 const queryTemplateList = require('./template/queryList');
 
@@ -45,6 +46,9 @@ exports.main = async (event, context) => {
     // 获取用户列表
     case '/user/queryListByPage':
       return await queryUserListByPage.main(event, context);
+    // 修改头像状态
+    case '/user/changeAvatarStatus':
+      return await changeAvatarStatus.main(event, context);
 
     // 获取模板列表
     case '/template/queryList':

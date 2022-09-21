@@ -1,4 +1,4 @@
-import { goto } from "../../../utils/service"
+import { goto } from "../../../utils/service";
 
 // pages/backStage/index/index.js
 Page({

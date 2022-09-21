@@ -1,5 +1,6 @@
 import { fHttp } from "../../../../utils/http";
 import { goto, transDate } from "../../../../utils/service";
+import { images } from "../../../../utils/constance";
 
 const app = getApp();
 
@@ -14,7 +15,8 @@ Page({
     canEnter: false,
     activityId: '',
     activityData: {},
-    isParticipate: false
+    isParticipate: false,
+    defaultAvatar: images.defaultAvatar
   },
 
   /**

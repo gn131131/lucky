@@ -101,6 +101,10 @@ export const bHttp = {
     queryListByPage: (data) => {
       return utilsService.http('/b/user/queryListByPage', data);
     },
+    // 修改hideAvatar状态
+    changeAvatarStatus: (data) => {
+      return utilsService.http('/b/user/changeAvatarStatus', data);
+    },
   },
   win: {
     // 获取中奖记录列表

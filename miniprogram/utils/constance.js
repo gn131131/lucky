@@ -30,4 +30,6 @@ export const images = {
   cardWin: `${folderUrl}card-win.jpg`,
 
   shining: `${folderUrl}shining-min.png`,
+
+  defaultAvatar: `${folderUrl}default-avatar.png`,
 };

@@ -56,8 +56,14 @@
           <view class="td td-2x"><input bindinput="onInputShowProbability" data-index="{{index}}" value="{{activityData.showProbability[index]}}"></input>%</view>
         </view>
       </view>
+      <view class="btn-wrapper item">
+        <button type="default" bindtap="onAddProbability">增加一个概率</button>
+      </view>
+      <view class="btn-wrapper item">
+        <button type="default" bindtap="onRemoveProbability">删除一个概率</button>
+      </view>
       <view class="item">
-        <button type="default" bindtap="onUpdate" data-status="0">暂存</button>
+        <!-- <button type="default" bindtap="onUpdate" data-status="0">暂存</button> -->
         <button type="primary" bindtap="onUpdate" data-status="1">发布</button>
       </view>
     </view>

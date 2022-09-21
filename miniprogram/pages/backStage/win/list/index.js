@@ -9,17 +9,21 @@ Page({
    */
   data: {
     list: [],
+    userId: '',
     page: {
       pageNum: 1,
       pageSize: 10
-    }
+    },
+    pullDownRefresh: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      userId: options.userId
+    });
   },
 
   /**
@@ -55,10 +59,16 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
+  async onPullDownRefresh() {
+    if (this._freshing) return;
+    this._freshing = true;
     this.data.page.pageNum = 1;
     this.data.list = [];
-    this.queryListByPage();
+    await this.queryListByPage();
+    this.setData({
+      pullDownRefresh: false
+    });
+    this._freshing = false;
   },
 
   /**
@@ -84,7 +94,7 @@ Page({
   },
 
   async queryListByPage() {
-    const res = await bHttp.win.queryListByPage({page: this.data.page});
+    const res = await bHttp.win.queryListByPage({page: this.data.page, userId: this.data.userId});
     this.setData({
       list: this.data.list.concat(res.records).map(item => {
         item.winTime = transDate(item.winTime);

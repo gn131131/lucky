@@ -1,6 +1,13 @@
 <view class="container">
-  <view class="content">
-    <button type="default" bindtap="goto" data-url="backStage/activity/add/index">新增</button>
+  <button type="default" bindtap="goto" data-url="backStage/activity/add/index">新增</button>
+  <scroll-view class="list-wrapper"
+    scroll-y="{{true}}"
+    bindscrolltolower="onReachBottom"
+    bindrefresherrefresh="onPullDownRefresh"
+    enable-back-to-top="{{true}}"
+    scroll-anchoring="{{true}}"
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{pullDownRefresh}}">
     <view wx:if="{{list.length > 0}}" class="list-item {{item.publishStatus === 1 && 'published'}}" wx:for="{{list}}" wx:key="id" bindtap="goto" data-url="backStage/activity/view/index" data-item="{{item}}">
       <view class="disabled-item" wx:if="{{item.status === 0}}">禁用</view>
       <view class="item-title">{{item.name}}</view>
@@ -8,6 +15,6 @@
       <view class="item">奖品：<view class="view-inline" wx:for="{{item.prizeList}}" wx:key="id" wx:for-item="prize">{{prize.name}}</view></view>
       <view class="item">活动码：{{item.activityCode}}</view>
     </view>
-    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view> 
-  </view>
+    <view class="no-data" wx:if="{{list.length === 0}}">暂无数据</view>
+  </scroll-view>
 </view>

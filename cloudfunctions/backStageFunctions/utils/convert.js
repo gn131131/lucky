@@ -26,6 +26,7 @@ exports.User = (params) => {
     nickName: params.nick_name,
     avatarUrl: params.avatar_url,
     probabilityIncrease: params.probability_increase,
+    hideAvatar: params.hide_avatar,
     createTime: params.create_time,
     updateTime: params.update_time,
   }

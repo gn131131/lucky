@@ -15,9 +15,9 @@ Page({
       drawTimes: 5,
       activityCode: 'abcd1234'
     },
-    startDate: '1900-01-01',
+    startDate: '1900/01/01',
     startTime: '00:00:00',
-    endDate: '2099-12-31',
+    endDate: '2099/12/31',
     endTime: '00:00:00',
     templateList: [],
     saving: false
@@ -155,8 +155,7 @@ Page({
       params.prizeList = this.data.prizeList;
       params.publishStatus = +status;
       params.status = 1;
-      params.activeTimeRange = `${new Date(`${this.data.startDate} ${this.data.startTime}`).getTime()}#${new Date(`${this.data.endDate} ${this.data.endTime}`).getTime()}`;
-  
+      params.activeTimeRange = `${new Date(this.data.startDate+' '+this.data.startTime).getTime()}#${new Date(this.data.endDate+' '+this.data.endTime).getTime()}`;
       try {
         await bHttp.activity.save(params);
   

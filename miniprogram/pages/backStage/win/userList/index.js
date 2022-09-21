@@ -1,7 +1,8 @@
 import { bHttp } from "../../../../utils/http";
+import { transDate } from "../../../../utils/service";
 import { goto } from "../../../../utils/service";
 
-// pages/backStage/activity/list/index.js
+// pages/backStage/user/list/index.js
 Page({
 
   /**
@@ -11,16 +12,21 @@ Page({
     list: [],
     page: {
       pageNum: 1,
-      pageSize: 10
+      pageSize: 20
     },
     pullDownRefresh: false
+  },
+
+  goto(event) {
+    const userId = event.currentTarget.dataset.item.id;
+    goto(event, {userId});
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -71,7 +77,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom() {
     if ((this.data.page.total - this.data.page.pageNum * this.data.page.pageSize) > 0) {
       this.data.page.pageNum++;
       this.queryListByPage();
@@ -91,20 +97,30 @@ Page({
   },
 
   async queryListByPage() {
-    const res = await bHttp.activity.queryListByPage({page: this.data.page});
+    const res = await bHttp.user.queryListByPage({page: this.data.page});
     this.setData({
-      list: this.data.list.concat(res.records),
+      list: this.data.list.concat(res.records).map(item => {
+        item.updateTime = transDate(item.updateTime);
+        return item;
+      }),
       page: res.page
     });
     wx.stopPullDownRefresh();
   },
 
-  goto(event) {
-    if (event.currentTarget.dataset.item) {
-      const id = event.currentTarget.dataset.item.id;
-      goto(event, {id});
-    } else {
-      goto(event);
-    }
+  async handleHideAvatar(e) {
+    const item = e.currentTarget.dataset.item;
+    const id = item.id;
+    const hideAvatar = !e.detail.value;
+    
+    const res = await bHttp.user.changeAvatarStatus({
+      id: id,
+      hideAvatar: hideAvatar
+    });
+
+    wx.showToast({
+      title: res ? '修改成功' : '修改失败',
+      icon: 'none'
+    });
   }
 })

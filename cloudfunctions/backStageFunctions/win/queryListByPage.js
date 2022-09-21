@@ -10,16 +10,22 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   try {
     const data = event.data; // 接收数据
+    const userId = data.userId;
     const pageSize = data.page.pageSize;
     const pageNum = data.page.pageNum; // 分页数据
     console.log('分页获取中奖列表');
     const countResult = await db.collection('win_user').count();
     const total = countResult.total;
+    const matchParams = {
+      user_id: userId
+    };
+    console.log('匹配参数', matchParams);
     // 查询数据库信息
     const res = await db.collection('win_user').aggregate()
     .sort({
-      update_time: -1
+      win_time: -1
     })
+    .match(matchParams)
     .lookup({
       from: 'user',
       localField: 'user_id',
